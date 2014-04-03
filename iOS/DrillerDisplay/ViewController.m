@@ -30,7 +30,7 @@ NSString *characteristicUUIDString = @"AAAE";
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.guage1.textLabel.text = @"TF - ";
-	self.guage1.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:8.0];
+	self.guage1.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:10.0];
     self.guage1.textLabel.textColor = GAUGE_FONTCOLOR;
     
 	self.guage1.lineWidth = 1.5;
@@ -47,7 +47,7 @@ NSString *characteristicUUIDString = @"AAAE";
     
     
     self.guage2.textLabel.text = @"P1 - ";
-	self.guage2.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:4.0];
+	self.guage2.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:8.0];
     self.guage2.textLabel.textColor = GAUGE_FONTCOLOR;
     
 	self.guage2.lineWidth = 0.5;
@@ -64,7 +64,7 @@ NSString *characteristicUUIDString = @"AAAE";
     
     
     self.guage3.textLabel.text = @"P2 - ";
-	self.guage3.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:4.0];
+	self.guage3.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:8.0];
     self.guage3.textLabel.textColor = GAUGE_FONTCOLOR;
     
 	self.guage3.lineWidth = 0.5;
