@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D30AE18618EB51DF007636AD /* KeyboardHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D30AE18318EB51DF007636AD /* KeyboardHelper.m */; };
+		D30AE18718EB51DF007636AD /* NSStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D30AE18518EB51DF007636AD /* NSStringHelper.m */; };
+		D330471B18EA42F30036A3BC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D330471A18EA42F30036A3BC /* SettingsViewController.m */; };
+		D330471E18EAF1650036A3BC /* SettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = D330471D18EAF1650036A3BC /* SettingsData.m */; };
+		D330472118EAF2B10036A3BC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D330471F18EAF2B10036A3BC /* Icon.png */; };
+		D330472218EAF2B10036A3BC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D330472018EAF2B10036A3BC /* Icon@2x.png */; };
+		D3B2F6A618C05AF70074DA95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A518C05AF70074DA95 /* Foundation.framework */; };
+		D3B2F6A818C05AF70074DA95 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A718C05AF70074DA95 /* CoreGraphics.framework */; };
+		D3B2F6AA18C05AF70074DA95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A918C05AF70074DA95 /* UIKit.framework */; };
+		D3B2F6B018C05AF70074DA95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3B2F6AE18C05AF70074DA95 /* InfoPlist.strings */; };
+		D3B2F6B218C05AF70074DA95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6B118C05AF70074DA95 /* main.m */; };
+		D3B2F6B618C05AF70074DA95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6B518C05AF70074DA95 /* AppDelegate.m */; };
+		D3B2F6B918C05AF70074DA95 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3B2F6B718C05AF70074DA95 /* Main_iPhone.storyboard */; };
+		D3B2F6BC18C05AF70074DA95 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3B2F6BA18C05AF70074DA95 /* Main_iPad.storyboard */; };
+		D3B2F6BF18C05AF70074DA95 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6BE18C05AF70074DA95 /* ViewController.m */; };
+		D3B2F6C118C05AF70074DA95 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B2F6C018C05AF70074DA95 /* Images.xcassets */; };
+		D3B2F6C818C05AF80074DA95 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6C718C05AF80074DA95 /* XCTest.framework */; };
+		D3B2F6C918C05AF80074DA95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A518C05AF70074DA95 /* Foundation.framework */; };
+		D3B2F6CA18C05AF80074DA95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A918C05AF70074DA95 /* UIKit.framework */; };
+		D3B2F6D218C05AF80074DA95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3B2F6D018C05AF80074DA95 /* InfoPlist.strings */; };
+		D3B2F6D418C05AF80074DA95 /* DrillerDisplayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6D318C05AF80074DA95 /* DrillerDisplayTests.m */; };
+		D3B2F6DF18C05B5F0074DA95 /* MeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6DE18C05B5F0074DA95 /* MeterView.m */; };
+		D3B2F6E418C0654B0074DA95 /* UDPEcho.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6E118C0654B0074DA95 /* UDPEcho.m */; };
+		D3B2F6E518C0654B0074DA95 /* UDPlistenerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6E318C0654B0074DA95 /* UDPlistenerDelegate.m */; };
+		D3EA84FB18E90D4E00396892 /* carbon_fibre.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA84FA18E90D4E00396892 /* carbon_fibre.png */; };
+		D3F0310C18C18A8000EBC316 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F0310B18C18A8000EBC316 /* CoreBluetooth.framework */; };
+		D3F0F2D918C1A65D0037DA48 /* PeripheralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F2D818C1A65D0037DA48 /* PeripheralCell.m */; };
+		D3F4170E18C42E21007F76F5 /* PeripheralServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4170D18C42E21007F76F5 /* PeripheralServer.m */; };
+		D3F4171118C42FC9007F76F5 /* CentralServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4171018C42FC9007F76F5 /* CentralServer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D3B2F6CB18C05AF80074DA95 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B2F69A18C05AF70074DA95 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3B2F6A118C05AF70074DA95;
+			remoteInfo = DrillerDisplay;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D30AE18218EB51DF007636AD /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardHelper.h; path = Helper/KeyboardHelper.h; sourceTree = "<group>"; };
+		D30AE18318EB51DF007636AD /* KeyboardHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyboardHelper.m; path = Helper/KeyboardHelper.m; sourceTree = "<group>"; };
+		D30AE18418EB51DF007636AD /* NSStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSStringHelper.h; path = Helper/NSStringHelper.h; sourceTree = "<group>"; };
+		D30AE18518EB51DF007636AD /* NSStringHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringHelper.m; path = Helper/NSStringHelper.m; sourceTree = "<group>"; };
+		D330471918EA42F30036A3BC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		D330471A18EA42F30036A3BC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		D330471C18EAF1650036A3BC /* SettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsData.h; sourceTree = "<group>"; };
+		D330471D18EAF1650036A3BC /* SettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsData.m; sourceTree = "<group>"; };
+		D330471F18EAF2B10036A3BC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
+		D330472018EAF2B10036A3BC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
+		D3B2F6A218C05AF70074DA95 /* DrillerDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillerDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3B2F6A518C05AF70074DA95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D3B2F6A718C05AF70074DA95 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D3B2F6A918C05AF70074DA95 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D3B2F6AD18C05AF70074DA95 /* DrillerDisplay-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DrillerDisplay-Info.plist"; sourceTree = "<group>"; };
+		D3B2F6AF18C05AF70074DA95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D3B2F6B118C05AF70074DA95 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D3B2F6B318C05AF70074DA95 /* DrillerDisplay-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrillerDisplay-Prefix.pch"; sourceTree = "<group>"; };
+		D3B2F6B418C05AF70074DA95 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D3B2F6B518C05AF70074DA95 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D3B2F6B818C05AF70074DA95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		D3B2F6BB18C05AF70074DA95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		D3B2F6BD18C05AF70074DA95 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D3B2F6BE18C05AF70074DA95 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D3B2F6C018C05AF70074DA95 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D3B2F6C618C05AF80074DA95 /* DrillerDisplayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrillerDisplayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3B2F6C718C05AF80074DA95 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D3B2F6CF18C05AF80074DA95 /* DrillerDisplayTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DrillerDisplayTests-Info.plist"; sourceTree = "<group>"; };
+		D3B2F6D118C05AF80074DA95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D3B2F6D318C05AF80074DA95 /* DrillerDisplayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrillerDisplayTests.m; sourceTree = "<group>"; };
+		D3B2F6DD18C05B5F0074DA95 /* MeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeterView.h; sourceTree = "<group>"; };
+		D3B2F6DE18C05B5F0074DA95 /* MeterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeterView.m; sourceTree = "<group>"; };
+		D3B2F6E018C0654B0074DA95 /* UDPEcho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPEcho.h; sourceTree = "<group>"; };
+		D3B2F6E118C0654B0074DA95 /* UDPEcho.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPEcho.m; sourceTree = "<group>"; };
+		D3B2F6E218C0654B0074DA95 /* UDPlistenerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPlistenerDelegate.h; sourceTree = "<group>"; };
+		D3B2F6E318C0654B0074DA95 /* UDPlistenerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPlistenerDelegate.m; sourceTree = "<group>"; };
+		D3EA84FA18E90D4E00396892 /* carbon_fibre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = carbon_fibre.png; path = Resources/carbon_fibre.png; sourceTree = "<group>"; };
+		D3F0310B18C18A8000EBC316 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		D3F0F2D718C1A65D0037DA48 /* PeripheralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralCell.h; sourceTree = "<group>"; };
+		D3F0F2D818C1A65D0037DA48 /* PeripheralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralCell.m; sourceTree = "<group>"; };
+		D3F4170C18C42E21007F76F5 /* PeripheralServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralServer.h; sourceTree = "<group>"; };
+		D3F4170D18C42E21007F76F5 /* PeripheralServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralServer.m; sourceTree = "<group>"; };
+		D3F4170F18C42FC9007F76F5 /* CentralServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CentralServer.h; sourceTree = "<group>"; };
+		D3F4171018C42FC9007F76F5 /* CentralServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CentralServer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3B2F69F18C05AF70074DA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3F0310C18C18A8000EBC316 /* CoreBluetooth.framework in Frameworks */,
+				D3B2F6A818C05AF70074DA95 /* CoreGraphics.framework in Frameworks */,
+				D3B2F6AA18C05AF70074DA95 /* UIKit.framework in Frameworks */,
+				D3B2F6A618C05AF70074DA95 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3B2F6C318C05AF80074DA95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3B2F6C818C05AF80074DA95 /* XCTest.framework in Frameworks */,
+				D3B2F6CA18C05AF80074DA95 /* UIKit.framework in Frameworks */,
+				D3B2F6C918C05AF80074DA95 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D30AE18118EB51D0007636AD /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				D30AE18218EB51DF007636AD /* KeyboardHelper.h */,
+				D30AE18318EB51DF007636AD /* KeyboardHelper.m */,
+				D30AE18418EB51DF007636AD /* NSStringHelper.h */,
+				D30AE18518EB51DF007636AD /* NSStringHelper.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		D3B2F69918C05AF70074DA95 = {
+			isa = PBXGroup;
+			children = (
+				D3B2F6AB18C05AF70074DA95 /* DrillerDisplay */,
+				D3B2F6CD18C05AF80074DA95 /* DrillerDisplayTests */,
+				D3B2F6A418C05AF70074DA95 /* Frameworks */,
+				D3B2F6A318C05AF70074DA95 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D3B2F6A318C05AF70074DA95 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F6A218C05AF70074DA95 /* DrillerDisplay.app */,
+				D3B2F6C618C05AF80074DA95 /* DrillerDisplayTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3B2F6A418C05AF70074DA95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3F0310B18C18A8000EBC316 /* CoreBluetooth.framework */,
+				D3B2F6A518C05AF70074DA95 /* Foundation.framework */,
+				D3B2F6A718C05AF70074DA95 /* CoreGraphics.framework */,
+				D3B2F6A918C05AF70074DA95 /* UIKit.framework */,
+				D3B2F6C718C05AF80074DA95 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3B2F6AB18C05AF70074DA95 /* DrillerDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				D30AE18118EB51D0007636AD /* Helper */,
+				D3EA84F918E90D4200396892 /* Resources */,
+				D3F0F2D718C1A65D0037DA48 /* PeripheralCell.h */,
+				D3F0F2D818C1A65D0037DA48 /* PeripheralCell.m */,
+				D3B2F6E018C0654B0074DA95 /* UDPEcho.h */,
+				D3B2F6E118C0654B0074DA95 /* UDPEcho.m */,
+				D3B2F6E218C0654B0074DA95 /* UDPlistenerDelegate.h */,
+				D3B2F6E318C0654B0074DA95 /* UDPlistenerDelegate.m */,
+				D3B2F6DD18C05B5F0074DA95 /* MeterView.h */,
+				D3B2F6DE18C05B5F0074DA95 /* MeterView.m */,
+				D3B2F6B418C05AF70074DA95 /* AppDelegate.h */,
+				D3B2F6B518C05AF70074DA95 /* AppDelegate.m */,
+				D3B2F6B718C05AF70074DA95 /* Main_iPhone.storyboard */,
+				D3B2F6BA18C05AF70074DA95 /* Main_iPad.storyboard */,
+				D3B2F6C018C05AF70074DA95 /* Images.xcassets */,
+				D3B2F6AC18C05AF70074DA95 /* Supporting Files */,
+				D3F4170C18C42E21007F76F5 /* PeripheralServer.h */,
+				D3F4170D18C42E21007F76F5 /* PeripheralServer.m */,
+				D3F4170F18C42FC9007F76F5 /* CentralServer.h */,
+				D3F4171018C42FC9007F76F5 /* CentralServer.m */,
+				D3B2F6BD18C05AF70074DA95 /* ViewController.h */,
+				D3B2F6BE18C05AF70074DA95 /* ViewController.m */,
+				D330471C18EAF1650036A3BC /* SettingsData.h */,
+				D330471D18EAF1650036A3BC /* SettingsData.m */,
+				D330471918EA42F30036A3BC /* SettingsViewController.h */,
+				D330471A18EA42F30036A3BC /* SettingsViewController.m */,
+			);
+			path = DrillerDisplay;
+			sourceTree = "<group>";
+		};
+		D3B2F6AC18C05AF70074DA95 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F6AD18C05AF70074DA95 /* DrillerDisplay-Info.plist */,
+				D3B2F6AE18C05AF70074DA95 /* InfoPlist.strings */,
+				D3B2F6B118C05AF70074DA95 /* main.m */,
+				D3B2F6B318C05AF70074DA95 /* DrillerDisplay-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3B2F6CD18C05AF80074DA95 /* DrillerDisplayTests */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F6D318C05AF80074DA95 /* DrillerDisplayTests.m */,
+				D3B2F6CE18C05AF80074DA95 /* Supporting Files */,
+			);
+			path = DrillerDisplayTests;
+			sourceTree = "<group>";
+		};
+		D3B2F6CE18C05AF80074DA95 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F6CF18C05AF80074DA95 /* DrillerDisplayTests-Info.plist */,
+				D3B2F6D018C05AF80074DA95 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3EA84F918E90D4200396892 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D330471F18EAF2B10036A3BC /* Icon.png */,
+				D330472018EAF2B10036A3BC /* Icon@2x.png */,
+				D3EA84FA18E90D4E00396892 /* carbon_fibre.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D3B2F6A118C05AF70074DA95 /* DrillerDisplay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3B2F6D718C05AF80074DA95 /* Build configuration list for PBXNativeTarget "DrillerDisplay" */;
+			buildPhases = (
+				D3B2F69E18C05AF70074DA95 /* Sources */,
+				D3B2F69F18C05AF70074DA95 /* Frameworks */,
+				D3B2F6A018C05AF70074DA95 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DrillerDisplay;
+			productName = DrillerDisplay;
+			productReference = D3B2F6A218C05AF70074DA95 /* DrillerDisplay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D3B2F6C518C05AF80074DA95 /* DrillerDisplayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3B2F6DA18C05AF80074DA95 /* Build configuration list for PBXNativeTarget "DrillerDisplayTests" */;
+			buildPhases = (
+				D3B2F6C218C05AF80074DA95 /* Sources */,
+				D3B2F6C318C05AF80074DA95 /* Frameworks */,
+				D3B2F6C418C05AF80074DA95 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3B2F6CC18C05AF80074DA95 /* PBXTargetDependency */,
+			);
+			name = DrillerDisplayTests;
+			productName = DrillerDisplayTests;
+			productReference = D3B2F6C618C05AF80074DA95 /* DrillerDisplayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3B2F69A18C05AF70074DA95 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Donald Pae";
+				TargetAttributes = {
+					D3B2F6C518C05AF80074DA95 = {
+						TestTargetID = D3B2F6A118C05AF70074DA95;
+					};
+				};
+			};
+			buildConfigurationList = D3B2F69D18C05AF70074DA95 /* Build configuration list for PBXProject "DrillerDisplay" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D3B2F69918C05AF70074DA95;
+			productRefGroup = D3B2F6A318C05AF70074DA95 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D3B2F6A118C05AF70074DA95 /* DrillerDisplay */,
+				D3B2F6C518C05AF80074DA95 /* DrillerDisplayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3B2F6A018C05AF70074DA95 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D330472118EAF2B10036A3BC /* Icon.png in Resources */,
+				D3EA84FB18E90D4E00396892 /* carbon_fibre.png in Resources */,
+				D330472218EAF2B10036A3BC /* Icon@2x.png in Resources */,
+				D3B2F6BC18C05AF70074DA95 /* Main_iPad.storyboard in Resources */,
+				D3B2F6C118C05AF70074DA95 /* Images.xcassets in Resources */,
+				D3B2F6B918C05AF70074DA95 /* Main_iPhone.storyboard in Resources */,
+				D3B2F6B018C05AF70074DA95 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3B2F6C418C05AF80074DA95 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3B2F6D218C05AF80074DA95 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3B2F69E18C05AF70074DA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3B2F6BF18C05AF70074DA95 /* ViewController.m in Sources */,
+				D3B2F6B618C05AF70074DA95 /* AppDelegate.m in Sources */,
+				D3B2F6E518C0654B0074DA95 /* UDPlistenerDelegate.m in Sources */,
+				D3F4171118C42FC9007F76F5 /* CentralServer.m in Sources */,
+				D3B2F6E418C0654B0074DA95 /* UDPEcho.m in Sources */,
+				D3B2F6DF18C05B5F0074DA95 /* MeterView.m in Sources */,
+				D30AE18718EB51DF007636AD /* NSStringHelper.m in Sources */,
+				D3B2F6B218C05AF70074DA95 /* main.m in Sources */,
+				D330471B18EA42F30036A3BC /* SettingsViewController.m in Sources */,
+				D30AE18618EB51DF007636AD /* KeyboardHelper.m in Sources */,
+				D3F0F2D918C1A65D0037DA48 /* PeripheralCell.m in Sources */,
+				D330471E18EAF1650036A3BC /* SettingsData.m in Sources */,
+				D3F4170E18C42E21007F76F5 /* PeripheralServer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3B2F6C218C05AF80074DA95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3B2F6D418C05AF80074DA95 /* DrillerDisplayTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D3B2F6CC18C05AF80074DA95 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3B2F6A118C05AF70074DA95 /* DrillerDisplay */;
+			targetProxy = D3B2F6CB18C05AF80074DA95 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D3B2F6AE18C05AF70074DA95 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3B2F6AF18C05AF70074DA95 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D3B2F6B718C05AF70074DA95 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3B2F6B818C05AF70074DA95 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		D3B2F6BA18C05AF70074DA95 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3B2F6BB18C05AF70074DA95 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		D3B2F6D018C05AF80074DA95 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3B2F6D118C05AF80074DA95 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D3B2F6D518C05AF80074DA95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3B2F6D618C05AF80074DA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D3B2F6D818C05AF80074DA95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DrillerDisplay/DrillerDisplay-Prefix.pch";
+				INFOPLIST_FILE = "DrillerDisplay/DrillerDisplay-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D3B2F6D918C05AF80074DA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DrillerDisplay/DrillerDisplay-Prefix.pch";
+				INFOPLIST_FILE = "DrillerDisplay/DrillerDisplay-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D3B2F6DB18C05AF80074DA95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DrillerDisplay.app/DrillerDisplay";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DrillerDisplay/DrillerDisplay-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DrillerDisplayTests/DrillerDisplayTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		D3B2F6DC18C05AF80074DA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DrillerDisplay.app/DrillerDisplay";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DrillerDisplay/DrillerDisplay-Prefix.pch";
+				INFOPLIST_FILE = "DrillerDisplayTests/DrillerDisplayTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3B2F69D18C05AF70074DA95 /* Build configuration list for PBXProject "DrillerDisplay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3B2F6D518C05AF80074DA95 /* Debug */,
+				D3B2F6D618C05AF80074DA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3B2F6D718C05AF80074DA95 /* Build configuration list for PBXNativeTarget "DrillerDisplay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3B2F6D818C05AF80074DA95 /* Debug */,
+				D3B2F6D918C05AF80074DA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3B2F6DA18C05AF80074DA95 /* Build configuration list for PBXNativeTarget "DrillerDisplayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3B2F6DB18C05AF80074DA95 /* Debug */,
+				D3B2F6DC18C05AF80074DA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3B2F69A18C05AF70074DA95 /* Project object */;
+}
