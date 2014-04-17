@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView *imgBg;
 @property (nonatomic, retain) IBOutlet UIScrollView *viewMain;
+@property (nonatomic, retain) IBOutlet UIView *ctrlContainer;
 @property (nonatomic, retain) IBOutlet UISwitch *switchBluetooth;
 @property (nonatomic, retain) IBOutlet UITextField *txtLocalIp;
 @property (nonatomic, retain) IBOutlet UITextField *txtLocalPort;

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MeterView.h"
+#import "WMGaugeView.h"
 #import "PeripheralServer.h"
 #import "UDPlistenerDelegate.h"
 
@@ -36,9 +36,9 @@
 @property (nonatomic, retain) IBOutlet UILabel *lblAlertLimitValue;
 @property (nonatomic, retain) IBOutlet UILabel *lblAlertCurrValue;
 
-@property (nonatomic, retain) IBOutlet MeterView *guage1;
-@property (nonatomic, retain) IBOutlet MeterView *guage2;
-@property (nonatomic, retain) IBOutlet MeterView *guage3;
+@property (nonatomic, retain) IBOutlet WMGaugeView *guage1;
+@property (nonatomic, retain) IBOutlet WMGaugeView *guage2;
+@property (nonatomic, retain) IBOutlet WMGaugeView *guage3;
 
 @property (nonatomic, retain) IBOutlet UILabel *lblMd;
 @property (nonatomic, retain) IBOutlet UILabel *measureDepth;       //md

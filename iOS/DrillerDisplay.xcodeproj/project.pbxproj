@@ -13,6 +13,9 @@
 		D330471E18EAF1650036A3BC /* SettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = D330471D18EAF1650036A3BC /* SettingsData.m */; };
 		D330472118EAF2B10036A3BC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D330471F18EAF2B10036A3BC /* Icon.png */; };
 		D330472218EAF2B10036A3BC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D330472018EAF2B10036A3BC /* Icon@2x.png */; };
+		D3AA56A018FE74EF000F5D96 /* WMGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA569F18FE74EF000F5D96 /* WMGaugeView.m */; };
+		D3AA56A218FE82AD000F5D96 /* gauge.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AA56A118FE82AD000F5D96 /* gauge.png */; };
+		D3AA56A418FEA8C4000F5D96 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA56A318FEA8C4000F5D96 /* QuartzCore.framework */; };
 		D3B2F6A618C05AF70074DA95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A518C05AF70074DA95 /* Foundation.framework */; };
 		D3B2F6A818C05AF70074DA95 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A718C05AF70074DA95 /* CoreGraphics.framework */; };
 		D3B2F6AA18C05AF70074DA95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A918C05AF70074DA95 /* UIKit.framework */; };
@@ -28,14 +31,11 @@
 		D3B2F6CA18C05AF80074DA95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B2F6A918C05AF70074DA95 /* UIKit.framework */; };
 		D3B2F6D218C05AF80074DA95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3B2F6D018C05AF80074DA95 /* InfoPlist.strings */; };
 		D3B2F6D418C05AF80074DA95 /* DrillerDisplayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6D318C05AF80074DA95 /* DrillerDisplayTests.m */; };
-		D3B2F6DF18C05B5F0074DA95 /* MeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6DE18C05B5F0074DA95 /* MeterView.m */; };
 		D3B2F6E418C0654B0074DA95 /* UDPEcho.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6E118C0654B0074DA95 /* UDPEcho.m */; };
 		D3B2F6E518C0654B0074DA95 /* UDPlistenerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F6E318C0654B0074DA95 /* UDPlistenerDelegate.m */; };
 		D3EA84FB18E90D4E00396892 /* carbon_fibre.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA84FA18E90D4E00396892 /* carbon_fibre.png */; };
 		D3F0310C18C18A8000EBC316 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F0310B18C18A8000EBC316 /* CoreBluetooth.framework */; };
-		D3F0F2D918C1A65D0037DA48 /* PeripheralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F2D818C1A65D0037DA48 /* PeripheralCell.m */; };
 		D3F4170E18C42E21007F76F5 /* PeripheralServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4170D18C42E21007F76F5 /* PeripheralServer.m */; };
-		D3F4171118C42FC9007F76F5 /* CentralServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4171018C42FC9007F76F5 /* CentralServer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +59,10 @@
 		D330471D18EAF1650036A3BC /* SettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsData.m; sourceTree = "<group>"; };
 		D330471F18EAF2B10036A3BC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
 		D330472018EAF2B10036A3BC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
+		D3AA569E18FE74EF000F5D96 /* WMGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMGaugeView.h; sourceTree = "<group>"; };
+		D3AA569F18FE74EF000F5D96 /* WMGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMGaugeView.m; sourceTree = "<group>"; };
+		D3AA56A118FE82AD000F5D96 /* gauge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gauge.png; path = Resources/gauge.png; sourceTree = "<group>"; };
+		D3AA56A318FEA8C4000F5D96 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D3B2F6A218C05AF70074DA95 /* DrillerDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillerDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B2F6A518C05AF70074DA95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3B2F6A718C05AF70074DA95 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -79,20 +83,14 @@
 		D3B2F6CF18C05AF80074DA95 /* DrillerDisplayTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DrillerDisplayTests-Info.plist"; sourceTree = "<group>"; };
 		D3B2F6D118C05AF80074DA95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3B2F6D318C05AF80074DA95 /* DrillerDisplayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrillerDisplayTests.m; sourceTree = "<group>"; };
-		D3B2F6DD18C05B5F0074DA95 /* MeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeterView.h; sourceTree = "<group>"; };
-		D3B2F6DE18C05B5F0074DA95 /* MeterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeterView.m; sourceTree = "<group>"; };
 		D3B2F6E018C0654B0074DA95 /* UDPEcho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPEcho.h; sourceTree = "<group>"; };
 		D3B2F6E118C0654B0074DA95 /* UDPEcho.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPEcho.m; sourceTree = "<group>"; };
 		D3B2F6E218C0654B0074DA95 /* UDPlistenerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPlistenerDelegate.h; sourceTree = "<group>"; };
 		D3B2F6E318C0654B0074DA95 /* UDPlistenerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPlistenerDelegate.m; sourceTree = "<group>"; };
 		D3EA84FA18E90D4E00396892 /* carbon_fibre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = carbon_fibre.png; path = Resources/carbon_fibre.png; sourceTree = "<group>"; };
 		D3F0310B18C18A8000EBC316 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		D3F0F2D718C1A65D0037DA48 /* PeripheralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralCell.h; sourceTree = "<group>"; };
-		D3F0F2D818C1A65D0037DA48 /* PeripheralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralCell.m; sourceTree = "<group>"; };
 		D3F4170C18C42E21007F76F5 /* PeripheralServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralServer.h; sourceTree = "<group>"; };
 		D3F4170D18C42E21007F76F5 /* PeripheralServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralServer.m; sourceTree = "<group>"; };
-		D3F4170F18C42FC9007F76F5 /* CentralServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CentralServer.h; sourceTree = "<group>"; };
-		D3F4171018C42FC9007F76F5 /* CentralServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CentralServer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3AA56A418FEA8C4000F5D96 /* QuartzCore.framework in Frameworks */,
 				D3F0310C18C18A8000EBC316 /* CoreBluetooth.framework in Frameworks */,
 				D3B2F6A818C05AF70074DA95 /* CoreGraphics.framework in Frameworks */,
 				D3B2F6AA18C05AF70074DA95 /* UIKit.framework in Frameworks */,
@@ -131,6 +130,26 @@
 			name = Helper;
 			sourceTree = "<group>";
 		};
+		D3AA569C18FE74B2000F5D96 /* UDP */ = {
+			isa = PBXGroup;
+			children = (
+				D3B2F6E018C0654B0074DA95 /* UDPEcho.h */,
+				D3B2F6E118C0654B0074DA95 /* UDPEcho.m */,
+				D3B2F6E218C0654B0074DA95 /* UDPlistenerDelegate.h */,
+				D3B2F6E318C0654B0074DA95 /* UDPlistenerDelegate.m */,
+			);
+			name = UDP;
+			sourceTree = "<group>";
+		};
+		D3AA569D18FE74DE000F5D96 /* Gauge */ = {
+			isa = PBXGroup;
+			children = (
+				D3AA569E18FE74EF000F5D96 /* WMGaugeView.h */,
+				D3AA569F18FE74EF000F5D96 /* WMGaugeView.m */,
+			);
+			name = Gauge;
+			sourceTree = "<group>";
+		};
 		D3B2F69918C05AF70074DA95 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +172,7 @@
 		D3B2F6A418C05AF70074DA95 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3AA56A318FEA8C4000F5D96 /* QuartzCore.framework */,
 				D3F0310B18C18A8000EBC316 /* CoreBluetooth.framework */,
 				D3B2F6A518C05AF70074DA95 /* Foundation.framework */,
 				D3B2F6A718C05AF70074DA95 /* CoreGraphics.framework */,
@@ -165,16 +185,10 @@
 		D3B2F6AB18C05AF70074DA95 /* DrillerDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				D3AA569D18FE74DE000F5D96 /* Gauge */,
+				D3AA569C18FE74B2000F5D96 /* UDP */,
 				D30AE18118EB51D0007636AD /* Helper */,
 				D3EA84F918E90D4200396892 /* Resources */,
-				D3F0F2D718C1A65D0037DA48 /* PeripheralCell.h */,
-				D3F0F2D818C1A65D0037DA48 /* PeripheralCell.m */,
-				D3B2F6E018C0654B0074DA95 /* UDPEcho.h */,
-				D3B2F6E118C0654B0074DA95 /* UDPEcho.m */,
-				D3B2F6E218C0654B0074DA95 /* UDPlistenerDelegate.h */,
-				D3B2F6E318C0654B0074DA95 /* UDPlistenerDelegate.m */,
-				D3B2F6DD18C05B5F0074DA95 /* MeterView.h */,
-				D3B2F6DE18C05B5F0074DA95 /* MeterView.m */,
 				D3B2F6B418C05AF70074DA95 /* AppDelegate.h */,
 				D3B2F6B518C05AF70074DA95 /* AppDelegate.m */,
 				D3B2F6B718C05AF70074DA95 /* Main_iPhone.storyboard */,
@@ -183,8 +197,6 @@
 				D3B2F6AC18C05AF70074DA95 /* Supporting Files */,
 				D3F4170C18C42E21007F76F5 /* PeripheralServer.h */,
 				D3F4170D18C42E21007F76F5 /* PeripheralServer.m */,
-				D3F4170F18C42FC9007F76F5 /* CentralServer.h */,
-				D3F4171018C42FC9007F76F5 /* CentralServer.m */,
 				D3B2F6BD18C05AF70074DA95 /* ViewController.h */,
 				D3B2F6BE18C05AF70074DA95 /* ViewController.m */,
 				D330471C18EAF1650036A3BC /* SettingsData.h */,
@@ -227,6 +239,7 @@
 		D3EA84F918E90D4200396892 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D3AA56A118FE82AD000F5D96 /* gauge.png */,
 				D330471F18EAF2B10036A3BC /* Icon.png */,
 				D330472018EAF2B10036A3BC /* Icon@2x.png */,
 				D3EA84FA18E90D4E00396892 /* carbon_fibre.png */,
@@ -315,6 +328,7 @@
 				D330472218EAF2B10036A3BC /* Icon@2x.png in Resources */,
 				D3B2F6BC18C05AF70074DA95 /* Main_iPad.storyboard in Resources */,
 				D3B2F6C118C05AF70074DA95 /* Images.xcassets in Resources */,
+				D3AA56A218FE82AD000F5D96 /* gauge.png in Resources */,
 				D3B2F6B918C05AF70074DA95 /* Main_iPhone.storyboard in Resources */,
 				D3B2F6B018C05AF70074DA95 /* InfoPlist.strings in Resources */,
 			);
@@ -338,16 +352,14 @@
 				D3B2F6BF18C05AF70074DA95 /* ViewController.m in Sources */,
 				D3B2F6B618C05AF70074DA95 /* AppDelegate.m in Sources */,
 				D3B2F6E518C0654B0074DA95 /* UDPlistenerDelegate.m in Sources */,
-				D3F4171118C42FC9007F76F5 /* CentralServer.m in Sources */,
 				D3B2F6E418C0654B0074DA95 /* UDPEcho.m in Sources */,
-				D3B2F6DF18C05B5F0074DA95 /* MeterView.m in Sources */,
 				D30AE18718EB51DF007636AD /* NSStringHelper.m in Sources */,
 				D3B2F6B218C05AF70074DA95 /* main.m in Sources */,
 				D330471B18EA42F30036A3BC /* SettingsViewController.m in Sources */,
 				D30AE18618EB51DF007636AD /* KeyboardHelper.m in Sources */,
-				D3F0F2D918C1A65D0037DA48 /* PeripheralCell.m in Sources */,
 				D330471E18EAF1650036A3BC /* SettingsData.m in Sources */,
 				D3F4170E18C42E21007F76F5 /* PeripheralServer.m in Sources */,
+				D3AA56A018FE74EF000F5D96 /* WMGaugeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,7 +494,7 @@
 		D3B2F6D818C05AF80074DA95 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -498,7 +510,7 @@
 		D3B2F6D918C05AF80074DA95 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

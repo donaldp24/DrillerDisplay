@@ -122,7 +122,7 @@ UIAlertViewDelegate>
 
 - (void)sendToSubscribers:(NSData *)data {
     if (self.peripheral.state != CBPeripheralManagerStatePoweredOn) {
-        LXCBLog(@"sendToSubscribers: peripheral not ready for sending state: %ld", self.peripheral.state);
+        LXCBLog(@"sendToSubscribers: peripheral not ready for sending state: %d", self.peripheral.state);
         return;
     }
     

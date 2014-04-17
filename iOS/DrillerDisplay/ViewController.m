@@ -11,10 +11,14 @@
 #import "SettingsData.h"
 #import <AudioToolbox/AudioToolbox.h>
 
+#define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+
 NSString *serviceUUIDString = @"F926";
 NSString *characteristicUUIDString = @"AAAE";
 
 #define GAUGE_FONTCOLOR     [UIColor whiteColor]
+
+#define GUAGE1_MAXVALUE     360
 
 @interface ViewController ()
 
@@ -28,58 +32,6 @@ NSString *characteristicUUIDString = @"AAAE";
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    self.guage1.textLabel.text = @"TF - ";
-	self.guage1.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:10.0];
-    self.guage1.textLabel.textColor = GAUGE_FONTCOLOR;
-    
-	self.guage1.lineWidth = 1.5;
-	//self.guage1.minorTickLength = 15.0;
-	self.guage1.needle.width = 3.0;
-    //self.guage1.needle.length = self.guage1.needle.length;// + self.guage1.needle.length*.23;
-	
-    self.guage1.startAngle = M_PI * 1.5;
-    self.guage1.arcLength = M_PI * 2.0;
-    self.guage1.minNumber = 0;
-    self.guage1.maxNumber = 360;
-    
-    self.guage1.increment = 45;
-    
-    
-    self.guage2.textLabel.text = @"P1 - ";
-	self.guage2.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:8.0];
-    self.guage2.textLabel.textColor = GAUGE_FONTCOLOR;
-    
-	self.guage2.lineWidth = 0.5;
-	//self.guage1.minorTickLength = 15.0;
-	self.guage2.needle.width = 1.0;
-    //self.guage1.needle.length = self.guage1.needle.length;// + self.guage1.needle.length*.23;
-	
-    self.guage2.startAngle = M_PI * 1.5;
-    self.guage2.arcLength = M_PI * 2.0;
-    self.guage2.minNumber = 0;
-    self.guage2.maxNumber = 360;
-    
-    self.guage2.increment = 90;
-    
-    
-    self.guage3.textLabel.text = @"P2 - ";
-	self.guage3.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:8.0];
-    self.guage3.textLabel.textColor = GAUGE_FONTCOLOR;
-    
-	self.guage3.lineWidth = 0.5;
-	//self.guage1.minorTickLength = 15.0;
-	self.guage3.needle.width = 1.0;
-    //self.guage1.needle.length = self.guage1.needle.length;// + self.guage1.needle.length*.23;
-	
-    self.guage3.startAngle = M_PI * 1.5;
-    self.guage3.arcLength = M_PI * 2.0;
-    self.guage3.minNumber = 0;
-    self.guage3.maxNumber = 360;
-    
-    self.guage3.increment = 90;
-    
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveNewValues:)
@@ -104,6 +56,120 @@ NSString *characteristicUUIDString = @"AAAE";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initGauges
+{
+    _guage1.maxValue = GUAGE1_MAXVALUE;
+    _guage1.scaleStartAngle = 0;
+    _guage1.scaleEndAngle = 360;
+    
+    _guage1.showRangeLabels = NO;
+    _guage1.rangeValues = @[ @0,                  @GUAGE1_MAXVALUE];
+    _guage1.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
+    _guage1.rangeLabels = @[ @"VERY LOW",          @"LOW"];
+    _guage1.unitOfMeasurement = @"0.0";
+    _guage1.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
+    _guage1.showUnitOfMeasurement = YES;
+    _guage1.scaleDivisions = 8;
+    _guage1.scaleSubdivisions = 10;
+    _guage1.scaleDivisionsWidth = 0.008;
+    _guage1.scaleSubdivisionsWidth = 0.006;
+    _guage1.rangeLabelsFontColor = [UIColor blackColor];
+    _guage1.rangeLabelsWidth = 0.04;
+    _guage1.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    
+    SettingsData *data = [SettingsData sharedData];
+    
+    //if (data.isPipeHighLimit)
+    _guage2.maxValue = (int)data.pipeHighLimit + (100 - ((int)data.pipeHighLimit % 100));
+    //if (data.isPipeLowLimit)
+    if (((int)data.pipeLowLimit % 100) == 0)
+        _guage2.minValue = (int)data.pipeLowLimit - 100;
+    else
+        _guage2.minValue = (int)data.pipeLowLimit + (100 - ((int)data.pipeLowLimit % 100)) - 100;
+    _guage2.showRangeLabels = NO;
+    
+    if (data.isPipeHighLimit && data.isPipeLowLimit)
+    {
+        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
+        _guage2.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
+    }
+    else if (data.isPipeHighLimit)
+    {
+        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
+        _guage2.rangeColors = @[ RGB(255, 255, 255), RGB(255, 255, 255), RGB(231, 32, 43)];
+    }
+    else if (data.isPipeLowLimit)
+    {
+        
+        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
+        _guage2.rangeColors = @[ RGB(255, 255, 255), RGB(231, 32, 43), RGB(255, 255, 255)];
+        
+    }
+    else
+    {
+        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:_guage2.maxValue]];
+        _guage2.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
+    }
+    
+    //if (data.isAnnHighLimit)
+    _guage3.maxValue = (int)data.annHighLimit + (100 - ((int)data.annHighLimit % 100));
+    if (((int)data.annLowLimit % 100) == 0)
+        _guage3.minValue = (int)data.annLowLimit - 100;
+    else
+        _guage3.minValue = (int)data.annLowLimit + (100 - ((int)data.annLowLimit % 100)) - 100;
+    _guage3.showRangeLabels = NO;
+    if (data.isAnnHighLimit && data.isAnnLowLimit)
+    {
+        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
+        _guage3.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
+    }
+    else if (data.isAnnHighLimit)
+    {
+        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
+        _guage3.rangeColors = @[ RGB(255, 255, 255), RGB(255, 255, 255), RGB(231, 32, 43)];
+    }
+    else if (data.isAnnLowLimit)
+    {
+        
+        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
+        _guage3.rangeColors = @[ RGB(255, 255, 255), RGB(231, 32, 43), RGB(255, 255, 255)];
+        
+    }
+    else
+    {
+        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:_guage3.maxValue]];
+        _guage3.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
+    }
+    
+
+    _guage2.unitOfMeasurement = @"0.0";
+    _guage2.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
+    _guage2.showUnitOfMeasurement = YES;
+    _guage2.scaleDivisions = 5;
+    _guage2.scaleSubdivisions = 10;
+    _guage2.scaleDivisionsWidth = 0.008;
+    _guage2.scaleSubdivisionsWidth = 0.006;
+    _guage2.rangeLabelsFontColor = [UIColor blackColor];
+    _guage2.rangeLabelsWidth = 0.04;
+    _guage2.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    
+
+    
+
+    _guage3.unitOfMeasurement = @"0.0";
+    _guage3.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
+    _guage3.showUnitOfMeasurement = YES;
+    _guage3.scaleDivisions = 5;
+    _guage3.scaleSubdivisions = 10;
+    _guage3.scaleDivisionsWidth = 0.008;
+    _guage3.scaleSubdivisionsWidth = 0.006;
+    _guage3.rangeLabelsFontColor = [UIColor blackColor];
+    _guage3.rangeLabelsWidth = 0.04;
+    _guage3.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -140,6 +206,10 @@ NSString *characteristicUUIDString = @"AAAE";
     }
     
     timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerProc:) userInfo:nil repeats:YES];
+    
+    
+    [self initGauges];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

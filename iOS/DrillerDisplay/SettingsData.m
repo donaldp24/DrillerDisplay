@@ -43,11 +43,11 @@ static SettingsData *_instance = nil;
         self.ipAddress = @"255.255.255.255";
         self.port = 7123;
         self.isPipeHighLimit = YES;
-        self.pipeHighLimit = 300;
+        self.pipeHighLimit = 1000;
         self.isPipeLowLimit = YES;
         self.pipeLowLimit = 0;
         self.isAnnHighLimit = YES;
-        self.annHighLimit = 300;
+        self.annHighLimit = 100;
         self.isAnnLowLimit = YES;
         self.isAnnLowLimit = 0;
     }
@@ -57,7 +57,7 @@ static SettingsData *_instance = nil;
 - (void)loadData
 {
     NSUserDefaults *config = [NSUserDefaults standardUserDefaults];
-    self.isBluetooth = [self readBoolEntry:config key:kDataBluetoothKey defaults:NO];
+    self.isBluetooth = NO;//[self readBoolEntry:config key:kDataBluetoothKey defaults:NO];
     self.ipAddress = [self readEntry:config key:kDataAddressKey defaults:@"255.255.255.255"];
     self.port = [self readIntEntry:config key:kDataPortKey defaults:7123];
     

@@ -87,32 +87,28 @@
 }
 
 -(void)layoutSubviewsForOrientation:(UIInterfaceOrientation) orientation {
-    //if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        CGRect rtMain = self.viewMain.frame;
+    
+    CGRect rtMain = self.viewMain.frame;
+    CGRect rtContainer = self.ctrlContainer.frame;
+    CGRect rtScreen = [[UIScreen mainScreen] bounds];
+    
+    if(orientation == UIInterfaceOrientationPortrait) {
+        rtMain = CGRectMake(0, 50, rtScreen.size.width, rtScreen.size.height - 50);
+        rtContainer = CGRectMake(0, 0, rtMain.size.width, rtMain.size.height);
+        self.viewMain.frame = rtMain;
+        self.ctrlContainer.frame = rtContainer;
         
-        CGRect rtScreen = [[UIScreen mainScreen] bounds];
         
-        if(orientation == UIInterfaceOrientationPortrait) {
-            rtMain = CGRectMake(rtScreen.size.width / 2 - rtMain.size.width / 2, 50, rtMain.size.width, rtScreen.size.height - 50);
-            self.viewMain.frame = rtMain;
-            
-            self.btnBg.frame = CGRectMake(0, 0, rtScreen.size.width, rtScreen.size.height);
-        }
-        else {
-            rtMain = CGRectMake(rtScreen.size.height / 2 - rtMain.size.width / 2, 50, rtMain.size.width, rtScreen.size.width - 50);
-            self.viewMain.frame = rtMain;
-            self.btnBg.frame = CGRectMake(0, 0, rtScreen.size.height, rtScreen.size.width);
-        }
-        
-    //}
-    //else {
-    //    if(orientation == UIInterfaceOrientationPortrait) {
-    //        //
-    //    }
-    //    else {
-    //        //
-    //    }
-    //}
+        self.btnBg.frame = CGRectMake(0, 0, rtMain.size.width, rtContainer.size.height);
+    }
+    else {
+        rtMain = CGRectMake(0, 50, rtScreen.size.height, rtScreen.size.width - 50);
+        rtContainer = CGRectMake(rtMain.size.width / 2 - rtContainer.size.width / 2, 0, rtContainer.size.width, rtContainer.size.height);
+        self.viewMain.frame = rtMain;
+        self.ctrlContainer.frame = rtContainer;
+
+        self.btnBg.frame = CGRectMake(0, 0, rtMain.size.width, rtContainer.size.height);
+    }
     
 }
 
