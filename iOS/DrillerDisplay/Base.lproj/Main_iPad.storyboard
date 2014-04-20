@@ -216,6 +216,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="azimuth" destination="FOF-di-rH9" id="s5B-cL-H14"/>
                         <outlet property="guage1" destination="But-IX-Rhu" id="3cf-xh-jPa"/>
@@ -496,6 +497,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="btnBg" destination="mOO-Iq-Qhe" id="3En-YT-Yuw"/>
                         <outlet property="ctrlContainer" destination="Zoc-WS-RyK" id="Jac-a1-Wf4"/>

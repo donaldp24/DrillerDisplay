@@ -90,6 +90,7 @@ NSString *characteristicUUIDString = @"AAAE";
         _guage2.minValue = (int)data.pipeLowLimit + (100 - ((int)data.pipeLowLimit % 100)) - 100;
     _guage2.showRangeLabels = NO;
     
+#if false
     if (data.isPipeHighLimit && data.isPipeLowLimit)
     {
         _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
@@ -112,6 +113,11 @@ NSString *characteristicUUIDString = @"AAAE";
         _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:_guage2.maxValue]];
         _guage2.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
     }
+#else
+    _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
+    _guage2.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
+#endif
+    
     
     //if (data.isAnnHighLimit)
     _guage3.maxValue = (int)data.annHighLimit + (100 - ((int)data.annHighLimit % 100));
@@ -120,6 +126,8 @@ NSString *characteristicUUIDString = @"AAAE";
     else
         _guage3.minValue = (int)data.annLowLimit + (100 - ((int)data.annLowLimit % 100)) - 100;
     _guage3.showRangeLabels = NO;
+    
+#if false
     if (data.isAnnHighLimit && data.isAnnLowLimit)
     {
         _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
@@ -142,6 +150,11 @@ NSString *characteristicUUIDString = @"AAAE";
         _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:_guage3.maxValue]];
         _guage3.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
     }
+#else
+    
+    _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
+    _guage3.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
+#endif
     
 
     _guage2.unitOfMeasurement = @"0.0";

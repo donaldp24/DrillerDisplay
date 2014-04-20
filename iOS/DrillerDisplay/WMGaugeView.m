@@ -324,7 +324,11 @@
 - (void)drawScale:(CGContextRef)context
 {
     CGContextSaveGState(context);
-    [self rotateContext:context fromCenter:center withAngle:DEGREES_TO_RADIANS(180 + _scaleStartAngle)];
+    
+    if (_scaleStartAngle != (CGFloat)0)
+        [self rotateContext:context fromCenter:center withAngle:DEGREES_TO_RADIANS(180 + _scaleStartAngle)];
+    else
+        [self rotateContext:context fromCenter:center withAngle:DEGREES_TO_RADIANS( _scaleStartAngle)];
     
     int totalTicks = _scaleDivisions * _scaleSubdivisions + 1;
     for (int i = 0; i < totalTicks; i++)
@@ -581,7 +585,10 @@
  */
 - (CGFloat)needleAngleForValue:(double)value
 {
-    return DEGREES_TO_RADIANS(_scaleStartAngle + (value - _minValue) / (_maxValue - _minValue) * (_scaleEndAngle - _scaleStartAngle)) + M_PI;
+    if (_scaleStartAngle != (CGFloat)0)
+        return DEGREES_TO_RADIANS(_scaleStartAngle + (value - _minValue) / (_maxValue - _minValue) * (_scaleEndAngle - _scaleStartAngle)) + M_PI;
+    else
+        return DEGREES_TO_RADIANS(_scaleStartAngle + (value - _minValue) / (_maxValue - _minValue) * (_scaleEndAngle - _scaleStartAngle));
 }
 
 /**
