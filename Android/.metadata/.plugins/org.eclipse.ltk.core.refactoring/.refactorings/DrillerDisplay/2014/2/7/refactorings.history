@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;&apos; to &apos;com.vectormagnetics.android.drillerdisplay.MainActivity.setStatus(...)&apos;&#x0D;&#x0A;- Original project: &apos;DrillerDisplay&apos;&#x0D;&#x0A;- Destination element: &apos;com.vectormagnetics.android.drillerdisplay.MainActivity.setStatus(...)&apos;&#x0D;&#x0A;- Original element: &apos;com.vectormagnetics.android.drillerdisplay.MainActivity.setStatus(...)&apos;" description="Copy method" destination="/src&lt;com.vectormagnetics.android.drillerdisplay{MainActivity.java[MainActivity~setStatus~I" element1="/src&lt;com.vectormagnetics.android.drillerdisplay{MainActivity.java[MainActivity~setStatus~QCharSequence;" flags="589830" id="org.eclipse.jdt.ui.copy" members="1" policy="org.eclipse.jdt.ui.copyMembers" stamp="1392393385677" version="1.0"/>
+</session>

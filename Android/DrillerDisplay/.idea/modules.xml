@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DrillerDisplay.iml" filepath="$PROJECT_DIR$/DrillerDisplay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../GaugeView-master/GaugeView-master/gaugeview-library/gaugeview-library.iml" filepath="$PROJECT_DIR$/../GaugeView-master/GaugeView-master/gaugeview-library/gaugeview-library.iml" />
+    </modules>
+  </component>
+</project>
+

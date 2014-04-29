@@ -1,0 +1,49 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.vectormagnetics.android.drillerdisplay"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <!-- 02/14 set more reasonable min and target sdk versions -->
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false" /><!-- 03/14 allow the app to be used if it doesn't have bluetooth -->
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- 02/14 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main" >
+            <!-- uncomment after allowing sending data back to RC (makes buttons look better)-->
+<!--             android:uiOptions="splitActionBarWhenNarrow" > -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- uncomment after allowing sending data back to RC (makes buttons look better)-->
+<!--             <meta-data android:name="android.support.UI_OPTIONS" -->
+<!--                    android:value="splitActionBarWhenNarrow" /> -->
+        </activity>
+        <!-- 02/14 added separate settings activity -->
+        <activity android:name="DDPrefs"
+            android:parentActivityName="com.vectormagnetics.android.drillersdisplay.MainActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.vectormagnetics.android.drillersdisplay.MainActivity" />
+        </activity>
+        <!-- 02/14 remove DeviceListActivity (no need to initiate any connections from an Android device) -->
+    </application>
+
+</manifest>

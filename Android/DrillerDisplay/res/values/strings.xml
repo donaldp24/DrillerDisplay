@@ -1,0 +1,89 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">VM Driller Display</string>
+    <string name="send">Send</string>
+    <string name="title_activity_main">VM Driller Display</string>
+    <string name="title_connecting">Connecting&#8230;</string>
+    <string name="title_connected_to">Connected to <xliff:g id="device_name">%1$s</xliff:g></string>
+    <string name="title_listening_on">Listening on <xliff:g id="device_name">%1$s</xliff:g></string>
+    <string name="title_not_connected">Not connected</string>
+    <string name="title_prefix_bt">Bluetooth -\u00A0</string>
+    <string name="title_prefix_wifi">Wifi -\u00A0</string>
+    <string name="title_all_ip_addrs">all IP addresses</string>
+    
+    <!-- Labels -->
+    <string name="lbl_az">Az:\u00A0</string>
+    <string name="lbl_incl">Incl:\u00A0</string>
+    <string name="lbl_md">MD:\u00A0</string>
+    <string name="lbl_p1">Pipe</string>
+    <string name="lbl_p2">Ann</string>
+    <string name="no_data">\?</string>
+    
+    <!-- Toast Text -->
+    <string name="msg_bt_unsupported">Bluetooth is not supported on this device. Switching to Wifi.</string>
+    <string name="msg_wifi_enable_err">Error enabling Wifi. Please enable it manually or switch to Bluetooth.</string>
+    <string name="msg_wifi_no_network">Not connected to a Wifi network. Go to system settings and connect to a network first.</string>
+    <string name="msg_bt_disabled">Bluetooth disabled. Switching to Wifi.</string>
+    <string name="msg_custom_msg">Message received: <xliff:g id="custom_msg">%1$s</xliff:g></string>
+    <string name="msg_no_data_bt">No data being received from RivCross TCP/IP to BT Bridge</string>
+    <string name="msg_data_bt">Data now being received from RivCross TCP/IP to BT Bridge</string>
+    <string name="msg_conn_err_bt">Connection error. Please ensure that RivCross TCP/IP to BT Bridge is still sending data.</string>
+    <string name="msg_no_data_wifi">No data being received from RivCross</string>
+    <string name="msg_data_wifi">Data now being received from RivCross</string>
+    <string name="msg_conn_err_wifi">Connection error. Please ensure that RivCross is still sending data.</string>
+    <string name="msg_bad_ip">Could not listen on selected IP address</string>
+    <string name="msg_bad_port">Could not listen on selected port number</string>
+    
+    <!-- Pressure Warnings -->
+    <string name="pressure_title_pipe_high">Pipe Pressure Too High</string>
+    <string name="pressure_title_pipe_low">Pipe Pressure Too Low</string>
+    <string name="pressure_title_ann_high">Annular Pressure Too High</string>
+    <string name="pressure_title_ann_low">Annular Pressure Too Low</string>
+    <string name="pressure_warning_text">Pressure reading = <xliff:g id="curr_pressure">%1$s</xliff:g>\nLimit = <xliff:g id="pressure_limit">%2$s</xliff:g></string>
+    
+    <!-- Options Menu -->
+<!--     <string name="take_shot">Take shot</string> -->
+<!--     <string name="send_msg">Send message</string> -->
+    <string name="discoverable">Make discoverable</string>
+    <string name="settings">Settings</string>
+    <string name="exit">Exit</string>
+    
+    <!-- Connection Settings -->
+    <string name="prefcat_conn">Connection</string>
+    <string name="pref_bt_mode">Bluetooth mode</string>
+    <string name="pref_bt_mode_summ">Connect using Bluetooth instead of Wifi</string>
+    <string name="pref_local_ip">Local IP address</string>
+    <string name="pref_local_ip_summ">Address on which to listen for RivCross data</string>
+    <string name="pref_local_port">Local port</string>
+    <string name="pref_local_port_summ">Port on which to listen for RivCross data</string>
+<!--     <string name="pref_remote_ip">Remote IP address</string> -->
+<!--     <string name="pref_remote_ip_summ">Address on which to broadcast data for RivCross</string> -->
+<!--     <string name="pref_remote_port">Remote port</string> -->
+<!--     <string name="pref_remote_port_summ">Port on which to broadcast data for RivCross</string> -->
+
+    <!-- Pressure Preferences -->
+    <string name="prefcat_pipe_pressure">Pipe pressure</string>
+    <string name="prefcat_ann_pressure">Annular pressure</string>
+    <string name="pref_press_high">High limit</string>
+    <string name="pref_pipe_high_summ">Upper limit of pipe pressure gauge</string>
+    <string name="pref_ann_high_summ">Upper limit of annular pressure gauge</string>
+    <string name="pref_press_high_alarm">Enable high limit alarm</string>
+    <string name="pref_pipe_high_alarm_summ">Show a warning if pipe pressure exceeds the upper limit</string>
+    <string name="pref_ann_high_alarm_summ">Show a warning if annular pressure exceeds the upper limit</string>
+    <string name="pref_press_low">Low limit</string>
+    <string name="pref_pipe_low_summ">Lower limit of pipe pressure gauge</string>
+    <string name="pref_ann_low_summ">Lower limit of annular pressure gauge</string>
+    <string name="pref_press_low_alarm">Enable low limit alarm</string>
+    <string name="pref_pipe_low_alarm_summ">Show a warning if pipe pressure drops below the lower limit</string>
+    <string name="pref_ann_low_alarm_summ">Show a warning if annular pressure drops below the lower limit</string>
+    
+    <!-- Preference Validation -->
+    <string name="prefmsg_invalid">Invalid Input</string>
+    <string name="prefmsg_bad_port">Only valid TCP port numbers are allowed. Changes not saved.</string>
+    <string name="prefmsg_bad_ip">Only valid IPv4 addresses are allowed. Changes not saved.</string>
+    <string name="prefmsg_non_numeric">Only valid numbers are allowed. Changes not saved.</string>
+    <string name="prefmsg_bad_high_limit">High limit must be greater than low limit. Changes not saved.</string>
+    <string name="prefmsg_bad_low_limit">Low limit must be less than high limit. Changes not saved.</string>
+    
+    <!-- for Google Glasses -->
+    <string name="show_dd">Show VM DD</string>
+</resources>

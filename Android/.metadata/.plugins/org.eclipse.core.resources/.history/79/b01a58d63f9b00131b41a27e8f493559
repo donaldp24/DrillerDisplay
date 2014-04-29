@@ -1,0 +1,100 @@
+package com.vectormagnetics.android.drillerdisplay;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceFragment;
+import android.support.v4.app.NavUtils;
+import android.text.TextUtils;
+import android.view.MenuItem;
+
+public class DDPrefs extends Activity {
+	@Override
+	 protected void onCreate(Bundle savedInstanceState) {
+		  super.onCreate(savedInstanceState);
+		  Bundle b = new Bundle();
+		  b.putBoolean("disableBTMode", getIntent().getExtras().getBoolean("disableBTMode"));
+		  DDPrefsFrag frag = new DDPrefsFrag();
+		  frag.setArguments(b);
+		  getFragmentManager().beginTransaction().replace(android.R.id.content, frag).commit();
+		  //getActionBar().setDisplayHomeAsUpEnabled(true);
+	 }
+	
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//	    if (item.getItemId() == android.R.id.home) {
+//	    // Respond to the action bar's Up/Home button
+//	        NavUtils.navigateUpFromSameTask(this);
+//	        return true;
+//	    }
+//	    return super.onOptionsItemSelected(item);
+//	}
+	
+	class DDPrefsFrag extends PreferenceFragment {
+		OnPreferenceChangeListener ipValidator = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				String[] quadrants = ((String)newValue).split("\\.", -1);
+				if(quadrants.length != 4) {
+					showIPErr();
+					return false;
+				}
+				for(int i = 0; i < quadrants.length; i++) {
+					if(!quadrants[i].matches("\\d+")) {
+						showIPErr();
+						return false;
+					}
+					if(Long.parseLong(quadrants[i]) > 255) { //use long to prevent crashes in edge cases
+						showIPErr();
+						return false;
+					}
+					quadrants[i] = String.valueOf(Long.parseLong(quadrants[i]));
+				}
+				preference.getEditor().putString(preference.getKey(), TextUtils.join(".", quadrants)).commit();
+				return true;
+			}
+		};
+		OnPreferenceChangeListener portValidator = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				newValue = Integer.parseInt((String)newValue);
+				if((Integer)newValue > 65535) {
+					final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		            builder.setTitle("Invalid Input");
+		            builder.setMessage("Only valid TCP port numbers are allowed. Changes not saved.");
+		            builder.setPositiveButton(android.R.string.ok, null);
+		            builder.show();
+					return false;
+				}
+				return true;
+			}
+		};
+		
+		private void showIPErr() {
+			final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Invalid Input");
+            builder.setMessage("Only valid IPv4 addresses are allowed. Changes not saved.");
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.show();
+		}
+		
+		@Override
+	    public void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        // Load the preferences from an XML resource
+	        addPreferencesFromResource(R.xml.preferences);
+	        
+	        PreferenceScreen ps = getPreferenceScreen();
+	        if(this.getArguments().getBoolean("disableBTMode")) ps.findPreference("pref_bt_mode").setEnabled(false);
+	        ps.findPreference("pref_local_ip").setOnPreferenceChangeListener(ipValidator);
+	        ps.findPreference("pref_remote_ip").setOnPreferenceChangeListener(ipValidator);
+	        ps.findPreference("pref_local_port").setOnPreferenceChangeListener(portValidator);
+	        ps.findPreference("pref_remote_port").setOnPreferenceChangeListener(portValidator);
+	    }
+	}
+}
+
+

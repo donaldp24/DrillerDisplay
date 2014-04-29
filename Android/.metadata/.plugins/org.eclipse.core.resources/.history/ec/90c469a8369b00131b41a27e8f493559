@@ -1,0 +1,43 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">VM Driller Display</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">VM Driller Display</string>
+    <string name="send">Send</string>
+    <string name="not_connected">You are not connected to a device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving VM Driller Display.</string>
+    <string name="title_connecting">connecting&#8230;</string>
+    <string name="title_connected_to">connected to <xliff:g id="device_name">%1$s</xliff:g></string>
+    <string name="title_listening_on">listening on <xliff:g id="device_name">%1$s</xliff:g></string>
+    <string name="title_not_connected">not connected</string>
+    <string name="lbl_az">Az:\u00A0</string>
+    <string name="lbl_incl">Incl:\u00A0</string>
+    <string name="lbl_md">MD:\u00A0</string>
+    <string name="no_data">\?</string>
+    <!--  DeviceListActivity -->
+    <string name="scanning">scanning for devices&#8230;</string>
+    <string name="select_device">select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
+    <!-- Options Menu -->
+    <string name="take_shot">Take shot</string>
+    <string name="send_msg">Send message</string>
+    <string name="discoverable">Make discoverable</string>
+    <string name="settings">Settings</string>
+    <string name="exit">Exit</string>
+    <!-- Preferences -->
+    <string name="pref_bt_mode">Bluetooth mode</string>
+    <string name="pref_bt_mode_summ">Connect using Bluetooth instead of Wifi</string>
+    <string name="pref_local_ip">Local IP address</string>
+    <string name="pref_local_ip_summ">Address on which to listen for RivCross data</string>
+    <string name="pref_local_port">Local port</string>
+    <string name="pref_local_port_summ">Port on which to listen for RivCross data</string>
+    <string name="pref_remote_ip">Remote IP address</string>
+    <string name="pref_remote_ip_summ">Address on which to broadcast data for RivCross</string>
+    <string name="pref_remote_port">Remote port</string>
+    <string name="pref_remote_port_summ">Port on which to broadcast data for RivCross</string>
+   
+</resources>

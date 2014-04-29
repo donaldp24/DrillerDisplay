@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory 
+        android:key="prefcat_conn"
+        android:title="@string/prefcat_conn" >
+        
+	    <CheckBoxPreference 
+	        android:key="pref_bt_mode"
+	        android:title="@string/pref_bt_mode"
+	        android:summary="@string/pref_bt_mode_summ"
+	        android:defaultValue="true"
+	        android:disableDependentsState="true" />
+	    <EditTextPreference
+	        android:key="pref_local_ip"
+	        android:title="@string/pref_local_ip"
+	        android:summary="@string/pref_local_ip_summ"
+	        android:defaultValue="255.255.255.255"
+	        android:inputType="phone"
+	        android:digits="01234567890.\\u0008"
+	        android:singleLine="true"
+	        android:maxLength="15"
+	        android:dependency="pref_bt_mode" />
+	    <EditTextPreference
+	        android:key="pref_local_port"
+	        android:title="@string/pref_local_port"
+	        android:summary="@string/pref_local_port_summ"
+	        android:defaultValue="7123"
+	        android:inputType="phone"
+	        android:digits="01234567890\\u0008"
+	        android:singleLine="true"
+	        android:maxLength="5"
+	        android:dependency="pref_bt_mode" />
+	    <EditTextPreference
+	        android:key="pref_remote_ip"
+	        android:title="@string/pref_remote_ip"
+	        android:summary="@string/pref_remote_ip_summ"
+	        android:defaultValue="255.255.255.255"
+	        android:inputType="phone"
+	        android:digits="01234567890.\\u0008"
+	        android:singleLine="true"
+	        android:maxLength="15"
+	        android:dependency="pref_bt_mode" />
+	    <EditTextPreference
+	        android:key="pref_remote_port"
+	        android:title="@string/pref_remote_port"
+	        android:summary="@string/pref_remote_port_summ"
+	        android:defaultValue="7123"
+	        android:inputType="phone"
+	        android:digits="01234567890\\u0008"
+	        android:singleLine="true"
+	        android:maxLength="5"
+	        android:dependency="pref_bt_mode" />
+	    
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:key="prefcat_pressure"
+		android:title="@string/prefcat_pressure" >
+	    
+        <PreferenceScreen
+	        android:key="prefscrn_pipe"
+	        android:title="@string/prefscrn_pipe" >
+            
+            <EditTextPreference
+		        android:key="pref_pipe_high"
+		        android:title="@string/pref_pipe_high"
+		        android:summary="@string/pref_pipe_high_summ"
+		        android:defaultValue="360"
+		        android:inputType="phone"
+		        android:digits="01234567890.\\u0008"
+		        android:singleLine="true" />
+            
+        </PreferenceScreen>
+        
+        <PreferenceScreen
+	        android:key="prefscrn_ann"
+	        android:title="@string/prefscrn_ann" >
+            
+            
+            
+        </PreferenceScreen>
+        
+    </PreferenceCategory>
+</PreferenceScreen>

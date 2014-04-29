@@ -1,0 +1,170 @@
+//02/14 created
+package com.vectormagnetics.android.drillerdisplay;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceFragment;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
+
+public class DDPrefs extends Activity {
+	@Override
+	 protected void onCreate(Bundle savedInstanceState) {
+		  super.onCreate(savedInstanceState);
+		  //03/14 fragment is already recreated automatically with state in super.onCreate, so only explicitly create a fragment if savedInstanceState is null
+		  if (savedInstanceState == null) {
+			  //pass "disable BT mode" bool to pref fragment
+			  Bundle b = new Bundle();
+			  b.putBoolean(MainActivity.DISABLE_BT_MODE, getIntent().getExtras().getBoolean(MainActivity.DISABLE_BT_MODE));
+			  DDPrefs.DDPrefsFrag frag = new DDPrefs.DDPrefsFrag();
+			  frag.setArguments(b);
+			  getFragmentManager().beginTransaction().replace(android.R.id.content, frag).commit();
+		  }
+		  getActionBar().setDisplayHomeAsUpEnabled(true);
+	 }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    if (item.getItemId() == android.R.id.home) {
+	    // Respond to the action bar's Up/Home button
+	        NavUtils.navigateUpFromSameTask(this);
+	        return true;
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
+	
+	public static class DDPrefsFrag extends PreferenceFragment {//03/14 changed to public static to prevent crashing when screen is rotated while in settings activity
+		
+		//03/14 need to enable/disable IP and port manually, because they were previously dependent on the bt mode setting,
+		//which means that they were being automatically disabled just because bt mode was disabled
+		OnPreferenceChangeListener btModeEnabler = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				boolean enableIPandPort = !Boolean.parseBoolean(newValue.toString());
+				PreferenceScreen ps = getPreferenceScreen();
+				ps.findPreference(MainActivity.PREF_LOCAL_IP).setEnabled(enableIPandPort);
+				ps.findPreference(MainActivity.PREF_LOCAL_PORT).setEnabled(enableIPandPort);
+				return true;
+			}
+		};
+		
+		OnPreferenceChangeListener ipValidator = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				String[] quadrants = ((String)newValue).split("\\.", -1);
+				if(quadrants.length != 4) { //make sure there are exactly 3 periods
+					showIPErr();
+					return false;
+				}
+				for(int i = 0; i < quadrants.length; i++) {
+					if(!quadrants[i].matches("\\d+")) { //make sure each piece separated by periods is one or more digits
+						showIPErr();
+						return false;
+					}
+					if(Long.parseLong(quadrants[i]) > 255) { //make sure each piece is an integer <= 255 (use long to prevent crashes in edge cases)
+						showIPErr();
+						return false;
+					}
+					quadrants[i] = String.valueOf(Long.parseLong(quadrants[i]));
+				}
+				return true;
+			}
+		};
+		//show a validation error dialog for a bad IP address
+		private void showIPErr() {
+			final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(getString(R.string.prefmsg_invalid));
+            builder.setMessage(getString(R.string.prefmsg_bad_ip));
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.show();
+		}
+		
+		OnPreferenceChangeListener portValidator = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				newValue = Integer.parseInt((String)newValue); //only digits can be entered (see preferences.xml)
+				if((Integer)newValue > 65535) { //make sure the number is <= the max port # value
+					//show a validation error dialog for a bad port #
+					final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		            builder.setTitle(getString(R.string.prefmsg_invalid));
+		            builder.setMessage(getString(R.string.prefmsg_bad_port));
+		            builder.setPositiveButton(android.R.string.ok, null);
+		            builder.show();
+					return false;
+				}
+				return true;
+			}
+		};
+		
+		OnPreferenceChangeListener pressureRangeValidator = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				String valAsStr = (String)newValue;
+				if(!valAsStr.matches("\\d*(\\.)?\\d+")) { //make sure it's a valid floating point number
+					//show a validation error dialog for a non-numeric pressure range value
+					final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		            builder.setTitle(getString(R.string.prefmsg_invalid));
+		            builder.setMessage(getString(R.string.prefmsg_non_numeric));
+		            builder.setPositiveButton(android.R.string.ok, null);
+		            builder.show();
+					return false;
+				}
+				float val = Float.parseFloat(valAsStr);
+				String prefName = preference.getKey();
+				boolean isHigh = prefName.contains("high");
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+				if(isHigh && Float.parseFloat(prefs.getString(prefName.replace("high", "low"), "")) >= val) { //if it's the high end, make sure it's higher than the low end
+					final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		            builder.setTitle(getString(R.string.prefmsg_invalid));
+		            builder.setMessage(getString(R.string.prefmsg_bad_high_limit));
+		            builder.setPositiveButton(android.R.string.ok, null);
+		            builder.show();
+					return false;
+				} else if(!isHigh && Float.parseFloat(prefs.getString(prefName.replace("low", "high"), "")) <= val) { //if it's the low end, make sure it's lower than the high end
+					final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		            builder.setTitle(getString(R.string.prefmsg_invalid));
+		            builder.setMessage(getString(R.string.prefmsg_bad_low_limit));
+		            builder.setPositiveButton(android.R.string.ok, null);
+		            builder.show();
+					return false;
+				}
+				return true;
+			}
+		};
+		
+		public DDPrefsFrag() { } //03/14 added to prevent crashing when screen is rotated while in settings activity
+		
+		@Override
+	    public void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        // Load the preferences from an XML resource
+	        addPreferencesFromResource(R.xml.preferences);
+	        
+	        PreferenceScreen ps = getPreferenceScreen();
+	        Preference btMode = ps.findPreference(MainActivity.PREF_BT_MODE), ipAddr = ps.findPreference(MainActivity.PREF_LOCAL_IP), portNum = ps.findPreference(MainActivity.PREF_LOCAL_PORT);
+	        if(this.getArguments().getBoolean(MainActivity.DISABLE_BT_MODE)) {
+	        	ps.findPreference(MainActivity.PREF_BT_MODE).setEnabled(false); //prevent user from switching to BT mode if BT isn't supported
+	        	ps.findPreference(MainActivity.PREF_LOCAL_IP).setEnabled(true); //because on pref change listeners apparently don't respond to programmatic changes
+				ps.findPreference(MainActivity.PREF_LOCAL_PORT).setEnabled(true);
+	        } else if(!PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(MainActivity.PREF_BT_MODE, true)) {
+	        	ps.findPreference(MainActivity.PREF_LOCAL_IP).setEnabled(true);
+				ps.findPreference(MainActivity.PREF_LOCAL_PORT).setEnabled(true);
+	        }
+	        ps.findPreference(MainActivity.PREF_BT_MODE).setOnPreferenceChangeListener(btModeEnabler);
+	        ps.findPreference(MainActivity.PREF_LOCAL_IP).setOnPreferenceChangeListener(ipValidator);
+	        ps.findPreference(MainActivity.PREF_LOCAL_PORT).setOnPreferenceChangeListener(portValidator);
+	        ps.findPreference(MainActivity.PREF_PIPE_HIGH).setOnPreferenceChangeListener(pressureRangeValidator);
+	        ps.findPreference(MainActivity.PREF_PIPE_LOW).setOnPreferenceChangeListener(pressureRangeValidator);
+	        ps.findPreference(MainActivity.PREF_ANN_HIGH).setOnPreferenceChangeListener(pressureRangeValidator);
+	        ps.findPreference(MainActivity.PREF_ANN_LOW).setOnPreferenceChangeListener(pressureRangeValidator);
+	    }
+	}
+}
+
+

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 02/14 created for Google Glasses mode -->
+<trigger xmlns:android="http://schemas.android.com/apk/res/android" keyword="@string/show_dd" />

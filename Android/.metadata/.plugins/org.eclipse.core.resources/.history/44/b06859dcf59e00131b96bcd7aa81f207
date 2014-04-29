@@ -1,0 +1,138 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    xmlns:gauge="http://schemas.android.com/apk/res/com.vectormagnetics.android.drillerdisplay"
+    android:id="@+id/maincontainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center"
+    android:padding="20dp" >
+
+   <org.codeandmagic.android.gauge.GaugeView
+       android:id="@+id/gauge_tf"
+       android:layout_height="match_parent"
+       android:layout_width="0dp"
+       android:layout_weight=".5"
+       gauge:showText="true" 
+       gauge:showOuterShadow="false"
+       gauge:scaleStartAngle="0.0"
+       gauge:textValueSize="0.1"
+       gauge:divisions="8"
+       /><!-- 01/14 add showOuterShadow to prevent exception in layout mode -->
+
+	<LinearLayout 
+		android:id="@+id/azcontainer"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight=".1"
+        android:orientation="vertical"
+        android:gravity="center" >
+	    
+		<TextView
+		    android:id="@+id/lblAz"
+			android:text="@string/lbl_az"
+			android:layout_height="wrap_content"
+       		android:layout_width="match_parent"
+	        android:textSize="16sp"
+	        android:gravity="center" />
+		<TextView
+	        android:id="@+id/txtAz"
+	        android:layout_height="wrap_content"
+       		android:layout_width="match_parent"
+	        android:textSize="16sp"
+	        android:gravity="center"
+	        android:text="@string/no_data" />
+		
+		<View
+		    android:layout_height="2dp"
+		    android:layout_width="fill_parent"
+		    android:layout_marginTop="10dp"
+		    android:layout_marginBottom="10dp"
+		    android:background="@android:color/darker_gray"/>
+		
+		<TextView
+			android:id="@+id/lblIncl"
+			android:text="@string/lbl_incl"
+			android:layout_height="wrap_content"
+       		android:layout_width="match_parent"
+	        android:textSize="16sp"
+	        android:gravity="center" />
+	   	<TextView
+			android:id="@+id/txtIncl"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:textSize="16sp"
+			android:gravity="center"
+			android:text="@string/no_data" />
+	   
+		<View
+		    android:layout_height="2dp"
+		    android:layout_width="fill_parent"
+		    android:layout_marginTop="10dp"
+		    android:layout_marginBottom="10dp"
+		    android:background="@android:color/darker_gray"/>
+	   
+	   	<TextView
+			android:id="@+id/lblMd"
+			android:text="@string/lbl_md"
+			android:layout_height="wrap_content"
+       		android:layout_width="match_parent"
+	        android:textSize="16sp"
+	        android:gravity="center" />
+	   	<TextView
+			android:id="@+id/txtMd"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:textSize="16sp"
+			android:gravity="center"
+			android:text="@string/no_data" />		   
+	</LinearLayout>
+
+	<LinearLayout 
+		android:id="@+id/pgaugecontainer"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight=".4"
+        android:orientation="vertical" >
+	
+	    <TextView
+			android:id="@+id/lblP1"
+			android:text="@string/lbl_p1"
+			android:layout_height="wrap_content"
+			android:layout_weight=".1"
+       		android:layout_width="match_parent"
+	        android:textSize="12sp"
+	        android:gravity="center"
+	        android:includeFontPadding="false" />
+	    
+		<org.codeandmagic.android.gauge.GaugeView
+		    android:id="@+id/gauge_p1"
+		    android:layout_height="wrap_content"
+		    android:layout_weight=".4"
+			android:layout_width="match_parent"
+		    gauge:showOuterShadow="false"
+		    gauge:scaleStartAngle="45"
+		    gauge:showText="false" />
+		
+		<org.codeandmagic.android.gauge.GaugeView
+		    android:id="@+id/gauge_p2"
+		    android:layout_height="wrap_content"
+		    android:layout_weight=".1"
+			android:layout_width="match_parent"
+		    gauge:showOuterShadow="false"
+		    gauge:scaleStartAngle="45"
+		    gauge:showText="false" />
+		
+		<TextView
+			android:id="@+id/txtP2"
+			android:text="@string/lbl_p2"
+			android:layout_height="wrap_content"
+			android:layout_weight=".4
+			android:layout_width="match_parent"
+			android:textSize="12sp"
+			android:gravity="center"
+			android:includeFontPadding="false" />
+		
+	</LinearLayout>
+
+</LinearLayout>

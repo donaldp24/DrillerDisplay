@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="257" key="DIALOG_WIDTH"/>
+		<item value="634" key="DIALOG_Y_ORIGIN"/>
+		<item value="273" key="DIALOG_HEIGHT"/>
+		<item value="416" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="&lt;uses-permission android:name=&quot;android.permission.BLUETOOTH_ADMIN&quot; /&gt;" key="selection"/>
+		<list key="findhistory">
+			<item value="&lt;uses-permission android:name=&quot;android.permission.BLUETOOTH_ADMIN&quot; /&gt;"/>
+			<item value="mDisableBTMode"/>
+			<item value="settings"/>
+			<item value="rangepaint"/>
+			<item value="setrangepaint"/>
+			<item value="setrange"/>
+			<item value="1f"/>
+			<item value="if(mPrefs.getBoolean(PREF_BT_MODE, true)) {"/>
+		</list>
+		<list key="replacehistory">
+			<item value="TCP"/>
+			<item value="mWifiThread"/>
+			<item value="connDataHandler"/>
+			<item value="mPrefs"/>
+			<item value="mHandler"/>
+			<item value="mDisableBTMode"/>
+			<item value="flashLED"/>
+			<item value="disableLED"/>
+		</list>
+	</section>
+</section>

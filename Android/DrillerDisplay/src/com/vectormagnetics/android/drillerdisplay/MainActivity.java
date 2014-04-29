@@ -1,0 +1,604 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Evelina Vrabie
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ ***
+ *
+ * 02/14 Modified by Vector Magnetics LLC
+ * 
+ ***
+ *******************************************************************************/
+package com.vectormagnetics.android.drillerdisplay;
+
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.AlertDialog; //02/14
+import android.app.FragmentManager; //01/14
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context; //02/14
+import android.content.DialogInterface; //02/14
+import android.content.Intent;
+import android.content.SharedPreferences; //02/14
+import android.net.wifi.WifiManager; //02/14
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+//02/14  import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.util.HashMap; //02/14
+import java.util.Locale; //02/14
+import java.util.Timer; //02/14
+import java.util.TimerTask; //02/14
+import org.codeandmagic.android.gauge.GaugeView;
+
+public class MainActivity extends Activity {
+	private GaugeView mGaugeTF;
+	private GaugeView mGaugeP1;
+	private GaugeView mGaugeP2;
+	private TextView mTxtIncl;
+	private TextView mTxtAz;
+	private TextView mTxtMD; //02/14 added
+
+	// Debugging
+	private static final String TAG = "DrillerDisplay";
+	private static final boolean D = false; //set to true to log debug messages
+
+	// Message types sent from the BluetoothChatService Handler
+	public static final int MESSAGE_STATE_CHANGE = 1;
+	public static final int MESSAGE_READ = 2;
+	public static final int MESSAGE_WRITE = 3;
+	public static final int MESSAGE_DEVICE_NAME = 4;
+	public static final int MESSAGE_TOAST = 5;
+
+	// Key names received from the BluetoothChatService Handler
+	public static final String DEVICE_NAME = "device_name";
+	public static final String TOAST = "toast";
+	//02/14 added
+	public static final String IS_IP_ADDR = "is_ip_addr";
+	public static final String DISABLE_LEDS = "disable_leds";
+	public static final String ENABLE_LEDS = "enable_leds";
+	
+	//02/14 setting names
+	public static final String PREF_BT_MODE = "pref_bt_mode";
+	public static final String PREF_LOCAL_IP = "pref_local_ip";
+	public static final String PREF_LOCAL_PORT = "pref_local_port";
+	public static final String PREF_PIPE_HIGH = "pref_pipe_high";
+	public static final String PREF_PIPE_LOW = "pref_pipe_low";
+	public static final String PREF_ANN_HIGH = "pref_ann_high";
+	public static final String PREF_ANN_LOW = "pref_ann_low";
+	
+	//02/14 keys for restoring from saved state
+	public static final String CURR_STATUS = "curr_status";
+	public static final String CURR_AZ = "curr_az";
+	public static final String CURR_INCL = "curr_incl";
+	public static final String CURR_MD = "curr_md";
+	public static final String CURR_LED_STATE = "curr_led_state";
+	
+	//02/14 connection fragment name
+	public static final String NAME_CONN_FRAG = "conn";
+	
+	//02/14 passed to settings activity to disable BT mode when BT isn't supported
+	public static final String DISABLE_BT_MODE = "disable_bt_mode";
+	
+	// Intent request codes
+	private static final int REQUEST_ENABLE_BT = 1;
+
+	// Local Bluetooth adapter
+	private BluetoothAdapter mBluetoothAdapter = null;
+	// Member object for the chat services
+	private RivCrossDDService mConnService = null;
+	// Name of the connected device
+	private String mConnectedDeviceName = null;
+	// Array adapter for the conversation thread
+	//private ArrayAdapter<String> mConversationArrayAdapter;
+	// String buffer for outgoing messages
+	//01/14 unused  private StringBuffer mOutStringBuffer;
+	//02/14 true if BT not supported. Passed to prefs activity to disable 
+	private boolean mDisableBTMode = false;
+	//02/14 UI message handler. Used to handle requests to update readings and flash LED
+	private Handler mHandler = new Handler();
+	//02/14 maintains a reference to the BT/Wifi connection fragment
+	private FragmentManager mFragMgr;
+	//02/14 thread that flashes the LED
+	private Thread mFlashLEDThread;
+	//02/14 for reading and writing app settings
+	private SharedPreferences mPrefs;
+	//02/14 pressure warning dialog
+	private AlertDialog pressureDialog;
+	//02/14 if a pressure reading would trigger a warning, but the user has seen a warning of the same type in the past minute, suppress the warning 
+	private HashMap<String, Boolean> suppressPressureWarnings;
+	//02/14 allows warnings to occur again after a minute has passed
+	private HashMap<String, Timer> pressureWarningTimers;
+	//02/14 added MD and MG
+	public enum sentDataTypes {
+		TF, P1, P2, RP, IN, AZ, MD, MG
+	}
+	
+	@Override
+	public void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		mGaugeTF = (GaugeView) findViewById(R.id.gauge_tf);
+		mGaugeP1 = (GaugeView) findViewById(R.id.gauge_p1);
+		mGaugeP2 = (GaugeView) findViewById(R.id.gauge_p2);
+		mTxtIncl = (TextView) findViewById(R.id.txtIncl);
+		mTxtAz = (TextView) findViewById(R.id.txtAz);
+		mTxtMD = (TextView) findViewById(R.id.txtMd); //02/14
+
+		// Get local Bluetooth adapter
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		
+		mFragMgr = getFragmentManager(); //02/14 init frag manager
+
+		//02/14 do app settings initialization
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		//02/14 do pressure warning initialization
+        pressureWarningTimers = new HashMap<String, Timer>();
+        pressureWarningTimers.put(PREF_PIPE_HIGH, new Timer());
+        pressureWarningTimers.put(PREF_PIPE_LOW, new Timer());
+        pressureWarningTimers.put(PREF_ANN_HIGH, new Timer());
+        pressureWarningTimers.put(PREF_ANN_LOW, new Timer());
+        suppressPressureWarnings = new HashMap<String, Boolean>();
+        suppressPressureWarnings.put(PREF_PIPE_HIGH, false);
+        suppressPressureWarnings.put(PREF_PIPE_LOW, false);
+        suppressPressureWarnings.put(PREF_ANN_HIGH, false);
+        suppressPressureWarnings.put(PREF_ANN_LOW, false);
+		
+		// If the adapter is null, then Bluetooth is not supported
+		if (mBluetoothAdapter == null) {
+			//02/14 automatically switch to Wifi and disable BT mode if BT is not supported
+			if(mPrefs.getBoolean(PREF_BT_MODE, true)) { //03/14 don't show a message on startup about bt being unsupported unless the app was in bt mode
+				Toast.makeText(this, getString(R.string.msg_bt_unsupported), Toast.LENGTH_LONG).show();
+				mPrefs.edit().putBoolean(MainActivity.PREF_BT_MODE, false).commit();
+			}
+			mDisableBTMode = true;
+		}
+		//02/14 restore previous state if needed
+		if(savedInstanceState != null) {
+			String currVal = savedInstanceState.getString(CURR_STATUS);
+			if(currVal != null) setStatusVerbatim(currVal);
+			currVal = savedInstanceState.getString(CURR_AZ);
+			if(currVal != null) mTxtAz.setText(currVal);
+			currVal = savedInstanceState.getString(CURR_INCL);
+			if(currVal != null) mTxtIncl.setText(currVal);
+			currVal = savedInstanceState.getString(CURR_MD);
+			if(currVal != null) mTxtMD.setText(currVal);
+			if(savedInstanceState.getBoolean(CURR_LED_STATE)) flashLED();
+
+		}
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		if(D) Log.d(TAG, "++ ON START ++");
+		//02/14 apply high and low pressure limit settings to gauges
+		mGaugeP1.setRanges(Float.parseFloat(mPrefs.getString(PREF_PIPE_LOW, "")), Float.parseFloat(mPrefs.getString(PREF_PIPE_HIGH, "")));
+		mGaugeP2.setRanges(Float.parseFloat(mPrefs.getString(PREF_ANN_LOW, "")), Float.parseFloat(mPrefs.getString(PREF_ANN_HIGH, "")));
+		
+		// If the app is set to use BT but BT is not on, request that it be enabled.
+		// setupChat() will then be called during onActivityResult
+		//02/14 set up/restore Wifi connection if not in BT mode
+		if(mPrefs.getBoolean(PREF_BT_MODE, true) && !mDisableBTMode) {
+			if (!mBluetoothAdapter.isEnabled()) {
+				if(D) Log.d(TAG, "++ BT disabled ++");
+				Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+				startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+			} else { // Otherwise, setup the chat session
+				if(D) Log.d(TAG, "++ BT enabled ++");
+				setupChat(true);
+			}
+		} else {
+			setupChat(false);
+		}
+	}
+
+	@Override
+	public synchronized void onResume() {
+		super.onResume();
+		if(D) Log.d(TAG, "+ ON RESUME +");
+
+		// Performing this check in onResume() covers the case in which BT was
+		// not enabled during onStart(), so we were paused to enable it...
+		// onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
+		if (mConnService != null) {
+			// Only if the state is STATE_NONE, do we know that we haven't started already
+			if (mConnService.getState() == RivCrossDDService.STATE_NONE) {
+				// Start the Bluetooth chat services
+				mConnService.start();
+			}
+		}
+	}
+	
+	//02/14 disable "Make discoverable" if the app is in Wifi mode
+	@Override
+	public boolean onPrepareOptionsMenu (Menu menu) {
+        menu.findItem(R.id.discoverable).setEnabled(mPrefs.getBoolean(PREF_BT_MODE, true));
+	    return true;
+	}
+	
+	//02/14 save state of app (connection status, az/incl/md, and whether to start flashing LED again)
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		CharSequence currVal = getActionBar().getSubtitle();
+		if(currVal != null) outState.putString(CURR_STATUS, currVal.toString());
+		currVal = mTxtAz.getText();
+		if(currVal != null) outState.putString(CURR_AZ, currVal.toString());
+		currVal = mTxtIncl.getText();
+		if(currVal != null) outState.putString(CURR_INCL, currVal.toString());
+		currVal = mTxtMD.getText();
+		if(currVal != null) outState.putString(CURR_MD, currVal.toString());
+		outState.putBoolean(CURR_LED_STATE, (mFlashLEDThread != null)); //02/14 better to check whether the thread exists
+	}
+
+	//01/14 don't stop BT service whenever there's a configuration change (only when closing the app)
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		if(isFinishing()) {
+			// Stop the Bluetooth chat services
+			if (mConnService != null) mConnService.stop();
+		}
+		if(D) Log.d(TAG, "--- ON DESTROY ---");
+	}
+	
+	private void setupChat(boolean isBT) {
+		if(D) Log.d(TAG, "setupChat()");
+
+		//        // Initialize the array adapter for the conversation thread
+		//		  mConversationArrayAdapter = new ArrayAdapter<String>(this, R.layout.message);
+		//        mConversationView = (ListView) findViewById(R.id.in);
+		//        mConversationView.setAdapter(mConversationArrayAdapter);
+		//
+		//        // Initialize the compose field with a listener for the return key
+		//        mOutEditText = (EditText) findViewById(R.id.edit_text_out);
+		//        mOutEditText.setOnEditorActionListener(mWriteListener);
+		//
+		//        // Initialize the send button with a listener that for click events
+		//        mSendButton = (Button) findViewById(R.id.button_send);
+		//        mSendButton.setOnClickListener(new OnClickListener() {
+		//            public void onClick(View v) {
+		//                // Send a message using content of the edit text widget
+		//                TextView view = (TextView) findViewById(R.id.edit_text_out);
+		//                String message = view.getText().toString();
+		//                sendMessage(message);
+		//            }
+		//        });
+		//02/14 persist BT service in fragment across config changes
+		mConnService = (RivCrossDDService)mFragMgr.findFragmentByTag(NAME_CONN_FRAG);
+		if(!isBT) { //02/14 if we need to create/restore a wifi connection, make sure wifi is on and connected to a network first
+			WifiManager wm = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+			if(!wm.isWifiEnabled() && !wm.setWifiEnabled(true)) { //there was an error turning on wifi
+				Toast.makeText(this, getString(R.string.msg_wifi_enable_err), Toast.LENGTH_LONG).show();
+				deleteCurrConnection();
+				return;
+			}
+			if(wm.getConnectionInfo().getNetworkId() == -1) { //wifi was turned on, but didn't connect to a network automatically
+				Toast.makeText(this, getString(R.string.msg_wifi_no_network), Toast.LENGTH_LONG).show();
+				deleteCurrConnection();
+				return;
+			}
+		}
+		// If not retained (or first time running), we need to create it.
+		if (mConnService == null) {
+        	// Initialize the BluetoothChatService to perform bluetooth connections
+			mConnService = new RivCrossDDService(this, connDataHandler, isBT);
+			mFragMgr.beginTransaction().add(mConnService, NAME_CONN_FRAG).commit();
+        } else if(mConnService.getIsBT() != isBT || (!isBT && (mConnService.getLocalIP() != mPrefs.getString(PREF_LOCAL_IP, "") ||
+        		mConnService.getLocalPort() != Integer.parseInt(mPrefs.getString(PREF_LOCAL_PORT, ""))))) {
+        	//02/14 switching modes, or Wifi settings changed - destroy previous connection and create new one
+    		mConnService.stop();
+    		mFragMgr.beginTransaction().remove(mConnService).commit();
+    		mConnService = new RivCrossDDService(this, connDataHandler, isBT);
+    		mFragMgr.beginTransaction().add(mConnService, NAME_CONN_FRAG).commit();
+    	} else {
+    		//keeping the same connection - update the message handler so that we update the correct UI layout!
+        	mConnService.setHandler(connDataHandler);
+        }
+
+		// Initialize the buffer for outgoing messages
+		//mOutStringBuffer = new StringBuffer("");
+	}
+	
+	//03/14 closes the current connection (if there is one) if there's a problem switching to Wifi
+	//(don't just automatically switch back to BT mode, since the user can probably fix the issue
+	//themselves by selecting a network or turning Wifi off and on again)
+	private void deleteCurrConnection() {
+		setStatus(getString(R.string.title_not_connected));
+		if(mConnService != null) {
+			mConnService.stop();
+    		mFragMgr.beginTransaction().remove(mConnService).commit();
+    		mConnService = null;
+		}
+	}
+
+	//02/14 remove code related to initiating a connection
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(D) Log.d(TAG, "onActivityResult " + resultCode);
+		switch (requestCode) {
+		case REQUEST_ENABLE_BT:
+			// When the request to enable Bluetooth returns
+			if (resultCode == Activity.RESULT_OK) {
+				// Bluetooth is now enabled, so set up a chat session
+				setupChat(true);
+			} else {
+				// User did not enable Bluetooth or an error occurred
+				if(D) Log.d(TAG, "BT not enabled");
+				Toast.makeText(this, getString(R.string.msg_bt_disabled), Toast.LENGTH_SHORT).show();
+				//02/14 if user prevents BT from being enabled, just switch to Wifi mode rather than exiting the application
+				mPrefs.edit().putBoolean(PREF_BT_MODE, false).commit();
+				setupChat(false);
+			}
+			break;
+		}
+	}
+	
+	private final void setStatus(CharSequence subTitle) {
+		final ActionBar actionBar = getActionBar();
+		if(actionBar == null) return;
+		String connType = getString(mPrefs.getBoolean(PREF_BT_MODE, true) ? R.string.title_prefix_bt : R.string.title_prefix_wifi); //02/14 add a prefix that indicates the connection mode
+		actionBar.setSubtitle(connType + subTitle);
+	}
+	
+	//02/14 created to allow setting the status *without* automatically adding a prefix for the connection mode
+	private final void setStatusVerbatim(CharSequence subTitle) {
+		final ActionBar actionBar = getActionBar();
+		actionBar.setSubtitle(subTitle);
+	}
+
+	// The Handler that gets information back from the Wifi/BT connection
+	private final Handler connDataHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			String packetContent;
+			String packetType;
+			
+			// TMI if(D) Log.d(TAG, "message handler:" + mConnectedDeviceName);
+			switch (msg.what) {
+			case MESSAGE_STATE_CHANGE:
+				if(D) Log.d(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
+				switch (msg.arg1) {
+				case RivCrossDDService.STATE_CONNECTED:
+					//02/14 if in Wifi mode, display "listening on <IP addr>" rather than "connected to <device>"
+					setStatus(getString((msg.arg2 == 1 ? R.string.title_listening_on : R.string.title_connected_to), mConnectedDeviceName));
+					//mConversationArrayAdapter.clear();
+					if(mFlashLEDThread == null) flashLED(); //02/14 flash LED if it wasn't flashing already
+					break;
+				case RivCrossDDService.STATE_CONNECTING:
+					setStatus(getString(R.string.title_connecting));
+					break;
+				case RivCrossDDService.STATE_LISTEN:
+				case RivCrossDDService.STATE_NONE:
+					setStatus(getString(R.string.title_not_connected));
+					disableLED(); //02/14 turn off LED whenever a connection is closed
+					break;
+				}
+				break;
+			case MESSAGE_WRITE: // not used right now
+				//byte[] writeBuf = (byte[]) msg.obj;
+				// construct a string from the buffer
+				//String writeMessage = new String(writeBuf);
+				//mConversationArrayAdapter.add("Me:  " + writeMessage);
+				break;
+			case MESSAGE_READ:
+				byte[] readBuf = (byte[]) msg.obj;
+				// construct a string from the valid bytes in the buffer
+				String readMessage;
+				try {
+					readMessage = new String(readBuf, 0, msg.arg1, "UTF-8"); //02/14 use UTF-8 instead
+					if(D) Log.d(TAG, "Rec'd: " + readMessage + " from " +mConnectedDeviceName);
+					if (readMessage.length() > 3) {
+						packetType = readMessage.substring(0, 2);
+						packetContent = readMessage.substring(3);
+						if(D) Log.d(TAG, "Rec'd: " + readMessage + " from " +mConnectedDeviceName);
+						//02/14 move packet parsing to DialValueThread
+						DialValueThread dvt = new DialValueThread(sentDataTypes.valueOf(packetType.toUpperCase(Locale.US)), packetContent);
+						if(!dvt.badData) mHandler.post(dvt);
+					}
+					// TODO maybe but you don't want this to just keep growing forver. mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
+				} catch (Exception e) {
+					if(D) Log.e("Dial", "Parsing error: " + e.getMessage());
+				} 
+				break;
+			case MESSAGE_DEVICE_NAME:
+				// save the connected device's name
+				mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+				Toast.makeText(getApplicationContext(), getString((msg.getData().getBoolean(IS_IP_ADDR) ? R.string.title_listening_on : R.string.title_connected_to), mConnectedDeviceName), Toast.LENGTH_SHORT).show();
+				break;
+			case MESSAGE_TOAST:
+				Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
+						Toast.LENGTH_SHORT).show();
+				//02/14 add custom logic for enabling/disabling LED when the connection status should stay the same
+				if(msg.getData().getBoolean(DISABLE_LEDS)) disableLED();
+				else if(msg.getData().getBoolean(ENABLE_LEDS)) flashLED();
+				break;
+			}
+		}
+	};
+	
+	//02/14 start toggling the LED between on (bright green) and off (dark green) every half-second, indefinitely
+	private void flashLED() {
+		mFlashLEDThread = new Thread() {
+			public void run() {
+				TextView led = (TextView)findViewById(R.id.data_led_box);
+				if(led != null) {
+					if(led.getTag() == "on") {
+						led.setBackgroundResource(R.drawable.led_off);
+						led.setTag("off");
+					}
+					else {
+						led.setBackgroundResource(R.drawable.led_on);
+						led.setTag("on");
+					}
+				}
+				mHandler.postDelayed(mFlashLEDThread, 500); //keep flashing the LED indefinitely
+			}
+		};
+		mHandler.post(mFlashLEDThread);
+	}
+
+	//02/14 stop toggling the LED and set it to the off state
+	private void disableLED() {
+		if(mFlashLEDThread != null) {
+			mFlashLEDThread.interrupt();
+			mHandler.removeCallbacks(mFlashLEDThread);
+			mFlashLEDThread = null;
+		}
+		TextView led = (TextView)findViewById(R.id.data_led_box);
+		if(led != null) {
+			led.setBackgroundResource(R.drawable.led_off);
+			led.setTag("off");
+		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.option_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(D) Log.d(TAG, "onOptionItemSelected");
+		switch (item.getItemId()) {
+		// TODO implement these later (uncomment related things in menu/option_menu.xml, values/strings.xml, and Android manifest, as well as remote IP/port settings stuff)
+//		case R.id.take_shot:
+//		case R.id.send_msg:			
+		case R.id.discoverable:
+			if(D) Log.d(TAG, "discoverable");
+			// Ensure this device is discoverable by others
+			ensureDiscoverable();
+			return true;
+		case R.id.settings: //02/14 handle request to open settings
+			Intent i = new Intent(this, DDPrefs.class);
+			i.putExtra(DISABLE_BT_MODE, mDisableBTMode);
+			startActivity(i);
+			return true;
+		case R.id.exit: //02/14 handle request to exit app
+			finish();
+			return true;
+		}
+		return false;
+	}
+
+	private void ensureDiscoverable() {
+		if(D) Log.d(TAG, "ensure discoverable");
+		if (mBluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+			Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+			discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+			startActivity(discoverableIntent);
+		}
+	}
+
+	//02/14 WIFIclientThread class moved to RivCrossDDService.java
+	
+	public class DialValueThread implements Runnable {
+		private sentDataTypes dataType;
+		private String newMsg;
+		private Float newDialValue;
+		public boolean badData = false;
+		
+		public DialValueThread(sentDataTypes theDataType, String theData) {
+			this.dataType = theDataType;
+			//02/14 parse data here so a custom message can be displayed verbatim without parsing to a float
+			if(theDataType == sentDataTypes.MG) this.newMsg = theData;
+			else {
+				try {
+					this.newDialValue = Float.valueOf(theData.replace(",", ""));
+				} catch(Exception e) {
+					if(D) Log.e("Dial", "can't parse: " + theData);
+					badData = true; //02/14 constructors can't have a separate return value, so just mark this thread as needing to 
+				}
+			}
+		}
+
+		public void run() {
+			//Log.e("Dial", dataType.toString());
+			switch (dataType) {
+			case TF:
+				mGaugeTF.setTargetValue(newDialValue);
+				break;
+			case P1:
+				mGaugeP1.setTargetValue(newDialValue); // have to be able to set units!
+				//02/14 show pressure warning if needed
+				checkPressure(PREF_PIPE_HIGH);
+				checkPressure(PREF_PIPE_LOW);
+				break;
+			case P2:
+				mGaugeP2.setTargetValue(newDialValue);
+				//02/14 show pressure warning if needed
+				checkPressure(PREF_ANN_HIGH);
+				checkPressure(PREF_ANN_LOW);
+				break;
+			case RP:
+				break;
+			case IN:
+				mTxtIncl.setText(newDialValue.toString());
+				break;
+			case AZ:
+				mTxtAz.setText(newDialValue.toString());
+				break;
+			case MD: //02/14 handle MD data
+				mTxtMD.setText(newDialValue.toString());
+				break;
+			case MG: //02/14 handle messages
+				Toast.makeText(getApplicationContext(), getString(R.string.msg_custom_msg, newMsg), Toast.LENGTH_LONG).show();
+				break;
+			}
+		}
+		
+		//02/14 display a pressure warning if appropriate
+		private synchronized void checkPressure(final String prefName) { //02/14 make synchronized to prevent race conditions with suppressPressureWarnings bools
+			boolean isPipe = (prefName.contains("pipe")), isHigh = (prefName.contains("high"));
+			//don't show a pressure warning if one of the same type was already shown within the past minute,
+			//or if pressure warnings of this type are disabled in app settings
+			if(suppressPressureWarnings.get(prefName) || !mPrefs.getBoolean(prefName + "_alarm", true)) return;
+			float threshVal = Float.parseFloat(mPrefs.getString(prefName, ""));
+			boolean checkThresh = (isHigh ? newDialValue >= threshVal : newDialValue <= threshVal);
+			//don't show a pressure warning if the pressure reading falls in an acceptable range,
+			//or if a pressure warning is already displayed to the user
+			if(checkThresh && (pressureDialog == null || !pressureDialog.isShowing())) {
+				//set up title for pressure warning dialog
+				String title;
+				if(isPipe) {
+					if(isHigh) title = getString(R.string.pressure_title_pipe_high);
+					else title = getString(R.string.pressure_title_pipe_low);
+				} else {
+					if(isHigh) title = getString(R.string.pressure_title_ann_high);
+					else title = getString(R.string.pressure_title_ann_low);
+				}
+				pressureDialog = new AlertDialog.Builder(MainActivity.this)
+				.setIcon(android.R.drawable.ic_dialog_alert) //give dialog an exclamation point icon
+	            .setMessage(getString(R.string.pressure_warning_text, newDialValue, threshVal))
+	            .setTitle(title)
+	            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	            	//disable all pressure warnings of the same type until a minute after the user dismisses the dialog
+	            	public void onClick(DialogInterface dialog, int which) {
+	                	pressureWarningTimers.get(prefName).schedule(new TimerTask() {
+	    	            	@Override
+	    	            	public void run() {
+	    	            		suppressPressureWarnings.put(prefName, false);
+	    	            	}
+	    	            }, 60000);
+	                }
+	            })
+	            .show();
+            	suppressPressureWarnings.put(prefName, true);
+			}
+		}
+	}
+}
