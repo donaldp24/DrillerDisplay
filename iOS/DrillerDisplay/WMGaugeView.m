@@ -18,6 +18,8 @@
 #define CGRGBA(r,g,b,a) RGBA(r,g,b,a).CGColor
 #define iCGRGBA(r,g,b,a) (id)CGRGBA(r,g,b,a)
 
+#define SCALE_FONT      0.07
+
 /* Scale conversion macro from [0-1] range to view  real size range */
 #define FULL_SCALE(x,y)    (x)*self.bounds.size.width, (y)*self.bounds.size.height
 
@@ -343,10 +345,10 @@
         
         float value = [self valueForTick:i];
         float div = (_maxValue - _minValue) / _scaleDivisions;
-        float mod = (int)value % (int)div;
+        float mod = (int)(value - _minValue) % (int)div;
         
         // Division
-        if ((abs(mod - (0 + _minValue)) < 0.000001) || (abs(mod - (div + _minValue)) < 0.000001))
+        if ((abs(mod) < 1 /*0.000001*/) || (abs(mod) < 1 /*0.000001*/))
         {
             // Initialize Core Graphics settings
             UIColor *color = (_rangeValues && _rangeColors) ? [self rangeColorForValue:value] : _scaleDivisionColor;
@@ -366,7 +368,7 @@
             if (drawThisValue == YES)
             {
                 NSString *valueString = [NSString stringWithFormat:@"%0.0f",value];
-                UIFont* font = _scaleFont ? _scaleFont : [UIFont fontWithName:@"Helvetica-Bold" size:0.05];
+                UIFont* font = _scaleFont ? _scaleFont : [UIFont fontWithName:@"Helvetica-Bold" size:SCALE_FONT];
                 NSDictionary* stringAttrs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : color };
                 NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:valueString attributes:stringAttrs];
                 CGSize fontWidth;

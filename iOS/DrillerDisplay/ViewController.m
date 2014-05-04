@@ -60,6 +60,10 @@ NSString *characteristicUUIDString = @"AAAE";
 
 - (void)initGauges
 {
+    
+    UIColor *limitColor = RGB(231, 32, 43);
+    UIColor *normalColor = RGB(255, 255, 255);
+    
     _guage1.maxValue = GUAGE1_MAXVALUE;
     _guage1.scaleStartAngle = 0;
     _guage1.scaleEndAngle = 360;
@@ -69,7 +73,7 @@ NSString *characteristicUUIDString = @"AAAE";
     _guage1.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
     _guage1.rangeLabels = @[ @"VERY LOW",          @"LOW"];
     _guage1.unitOfMeasurement = @"0.0";
-    _guage1.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
+    _guage1.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.1];
     _guage1.showUnitOfMeasurement = YES;
     _guage1.scaleDivisions = 8;
     _guage1.scaleSubdivisions = 10;
@@ -78,111 +82,114 @@ NSString *characteristicUUIDString = @"AAAE";
     _guage1.rangeLabelsFontColor = [UIColor blackColor];
     _guage1.rangeLabelsWidth = 0.04;
     _guage1.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    [_guage1 setValue:0 animated:YES];
     
     SettingsData *data = [SettingsData sharedData];
     
-    //if (data.isPipeHighLimit)
-    _guage2.maxValue = (int)data.pipeHighLimit + (100 - ((int)data.pipeHighLimit % 100));
-    //if (data.isPipeLowLimit)
-    if (((int)data.pipeLowLimit % 100) == 0)
-        _guage2.minValue = (int)data.pipeLowLimit - 100;
-    else
-        _guage2.minValue = (int)data.pipeLowLimit + (100 - ((int)data.pipeLowLimit % 100)) - 100;
+
+    
+    [self setGaugeRange:_guage2 preMin:data.pipeLowLimit preMax:data.pipeHighLimit];
     _guage2.showRangeLabels = NO;
     
-#if false
-    if (data.isPipeHighLimit && data.isPipeLowLimit)
-    {
-        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
-        _guage2.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
-    }
-    else if (data.isPipeHighLimit)
-    {
-        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
-        _guage2.rangeColors = @[ RGB(255, 255, 255), RGB(255, 255, 255), RGB(231, 32, 43)];
-    }
-    else if (data.isPipeLowLimit)
-    {
-        
-        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
-        _guage2.rangeColors = @[ RGB(255, 255, 255), RGB(231, 32, 43), RGB(255, 255, 255)];
-        
-    }
-    else
-    {
-        _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:_guage2.maxValue]];
-        _guage2.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
-    }
-#else
     _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
-    _guage2.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
-#endif
-    
-    
-    //if (data.isAnnHighLimit)
-    _guage3.maxValue = (int)data.annHighLimit + (100 - ((int)data.annHighLimit % 100));
-    if (((int)data.annLowLimit % 100) == 0)
-        _guage3.minValue = (int)data.annLowLimit - 100;
-    else
-        _guage3.minValue = (int)data.annLowLimit + (100 - ((int)data.annLowLimit % 100)) - 100;
-    _guage3.showRangeLabels = NO;
-    
-#if false
-    if (data.isAnnHighLimit && data.isAnnLowLimit)
-    {
-        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
-        _guage3.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
-    }
-    else if (data.isAnnHighLimit)
-    {
-        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
-        _guage3.rangeColors = @[ RGB(255, 255, 255), RGB(255, 255, 255), RGB(231, 32, 43)];
-    }
-    else if (data.isAnnLowLimit)
-    {
-        
-        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
-        _guage3.rangeColors = @[ RGB(255, 255, 255), RGB(231, 32, 43), RGB(255, 255, 255)];
-        
-    }
-    else
-    {
-        _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:_guage3.maxValue]];
-        _guage3.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
-    }
-#else
-    
-    _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
-    _guage3.rangeColors = @[ RGB(231, 32, 43), RGB(231, 32, 43), RGB(255, 255, 255), RGB(231, 32, 43)];
-#endif
-    
+    _guage2.rangeColors = @[ limitColor, limitColor, normalColor, limitColor];
 
     _guage2.unitOfMeasurement = @"0.0";
-    _guage2.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
+    _guage2.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.1];
     _guage2.showUnitOfMeasurement = YES;
-    _guage2.scaleDivisions = 5;
-    _guage2.scaleSubdivisions = 10;
+    
     _guage2.scaleDivisionsWidth = 0.008;
     _guage2.scaleSubdivisionsWidth = 0.006;
     _guage2.rangeLabelsFontColor = [UIColor blackColor];
     _guage2.rangeLabelsWidth = 0.04;
     _guage2.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    [_guage2 setValue:0 animated:YES];
     
-
+    
+    [self setGaugeRange:_guage3 preMin:data.annLowLimit preMax:data.annHighLimit];
+    
+    _guage3.showRangeLabels = NO;
+    
+    _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
+    _guage3.rangeColors = @[ limitColor, limitColor, normalColor, limitColor];
     
 
     _guage3.unitOfMeasurement = @"0.0";
     _guage3.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
     _guage3.showUnitOfMeasurement = YES;
-    _guage3.scaleDivisions = 5;
-    _guage3.scaleSubdivisions = 10;
     _guage3.scaleDivisionsWidth = 0.008;
     _guage3.scaleSubdivisionsWidth = 0.006;
     _guage3.rangeLabelsFontColor = [UIColor blackColor];
     _guage3.rangeLabelsWidth = 0.04;
     _guage3.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    [_guage3 setValue:0 animated:YES];
+}
+
+- (void)setGaugeRange:(WMGaugeView *)gauge preMin:(float)preMin preMax:(float)preMax
+{
+    // min and max value
+    int subDivision = 1;
+    float scale = 1;
+    float dist = preMax - preMin;
+    while (true)
+    {
+        if (dist <= 10)
+        {
+            if (dist >=7 &&  dist <= 10)
+            {
+                dist = dist / 2.0;
+                scale = scale * 2.0;
+                if (scale >= 10)
+                    subDivision = 10;
+            }
+            else if (dist >= 4 && dist <= 6)
+            {
+                dist = dist;
+                scale = scale;
+                if (scale >= 10)
+                    subDivision = 10;
+            }
+            else
+            {
+                dist = dist * 2;
+                scale = scale / 2.0;
+                if (scale >= 5)
+                    subDivision = 5;
+            }
+            break;
+        }
+        dist = dist / 10.0;
+        scale = scale * 10.0;
+    }
+    
+    float minValue = 0;
+    float maxValue = 0;
+    
+    float start = ((int)preMin / (int)scale) * scale;
+    while (true)
+    {
+        if (start < preMin && (preMin - start) > scale / 2.0)
+            break;
+        start = start - scale;
+    }
+    
+    minValue = start;
+    
+    start = ((int)preMax / (int)scale) * scale;
+    while (true) {
+        if (start > preMax && (start - preMax) > scale / 2.0)
+            break;
+        start = start + scale;
+    }
+    
+    maxValue = start;
+    
+    gauge.minValue = minValue;
+    gauge.maxValue = maxValue;
     
     
+    gauge.scaleDivisions = (int)((maxValue - minValue) / scale);
+    gauge.scaleSubdivisions = subDivision;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -357,16 +364,16 @@ NSString *characteristicUUIDString = @"AAAE";
         CGFloat lblWidth = 42;
         CGFloat lblHeight = 21;
         CGFloat valueWidth = 57;
-        CGFloat bigGaugeWidth = 360;
-        CGFloat bigGaugeHeight = 360;
-        CGFloat gaugeWidth = 168;
-        CGFloat gaugeHeight = 168;
+        CGFloat bigGaugeWidth = 428;
+        CGFloat bigGaugeHeight = 428;
+        CGFloat gaugeWidth = 191;
+        CGFloat gaugeHeight = 191;
         
         if(orientation == UIInterfaceOrientationPortrait) {
             // gauges
-            self.guage1.frame = CGRectMake(204, 56, bigGaugeWidth, bigGaugeHeight);
-            self.guage2.frame = CGRectMake(129, 610, gaugeWidth, gaugeHeight);
-            self.guage3.frame = CGRectMake(482, 610, gaugeWidth, gaugeHeight);
+            self.guage1.frame = CGRectMake(170, 56, bigGaugeWidth, bigGaugeHeight);
+            self.guage2.frame = CGRectMake(118, 610, gaugeWidth, gaugeHeight);
+            self.guage3.frame = CGRectMake(471, 610, gaugeWidth, gaugeHeight);
             
             // labels
             CGFloat lblTop = 501;
@@ -386,9 +393,9 @@ NSString *characteristicUUIDString = @"AAAE";
         }
         else {
             // gauges
-            self.guage1.frame = CGRectMake(141, 211, bigGaugeWidth, bigGaugeHeight);
-            self.guage2.frame = CGRectMake(737, 168, gaugeWidth, gaugeHeight);
-            self.guage3.frame = CGRectMake(737, 431, gaugeWidth, gaugeHeight);
+            self.guage1.frame = CGRectMake(111, 180, bigGaugeWidth, bigGaugeHeight);
+            self.guage2.frame = CGRectMake(730, 148, gaugeWidth, gaugeHeight);
+            self.guage3.frame = CGRectMake(730, 411, gaugeWidth, gaugeHeight);
             
             CGFloat lblLeft = 573;
             CGFloat valueLeft = 614;
