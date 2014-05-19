@@ -160,8 +160,7 @@
 {
     //---gets the size of the keyboard---
     NSDictionary *userInfo = [notification userInfo];
-    NSValue *keyboardValue = [userInfo objectForKey:UIKeyboardBoundsUserInfoKey];
-    [keyboardValue getValue:&keyboardBounds];
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardBounds];
     
 	[KeyboardHelper moveScrollView:curTextField scrollView:(UIScrollView*)self.view];
     
@@ -172,8 +171,9 @@
 {
     //---gets the size of the keyboard---
     NSDictionary *userInfo = [notification userInfo];
-    NSValue *keyboardValue = [userInfo objectForKey:UIKeyboardBoundsUserInfoKey];
-    [keyboardValue getValue:&keyboardBounds];
+    //NSValue *keyboardValue = [userInfo objectForKey:UIKeyboardBoundsUserInfoKey];
+    //[keyboardValue getValue:&keyboardBounds];
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardBounds];
     
     [KeyboardHelper moveScrollView:nil scrollView:(UIScrollView*)self.view];
     

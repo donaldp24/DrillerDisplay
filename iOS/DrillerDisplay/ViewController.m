@@ -192,7 +192,7 @@ NSString *characteristicUUIDString = @"AAAE";
     gauge.scaleSubdivisions = subDivision;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     
     for (int i = 0; i < 4; i ++) {
@@ -467,7 +467,7 @@ NSString *characteristicUUIDString = @"AAAE";
                 {
                     isShowAlert[0] = NO;
                     [self performSelectorOnMainThread:@selector(showPipeHighLimitAlert:) withObject:(id)[NSNumber numberWithFloat:fp1] waitUntilDone:NO];
-                    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:0] repeats:NO];
+                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:0] repeats:NO];
                 }
             }
             if (settingData.isPipeLowLimit)
@@ -476,7 +476,7 @@ NSString *characteristicUUIDString = @"AAAE";
                 {
                     isShowAlert[1] = NO;
                     [self performSelectorOnMainThread:@selector(showPipeLowLimitAlert:) withObject:[NSNumber numberWithFloat:fp1] waitUntilDone:NO];
-                    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:1] repeats:NO];
+                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:1] repeats:NO];
                 }
             }
         }
@@ -490,7 +490,7 @@ NSString *characteristicUUIDString = @"AAAE";
                 {
                     isShowAlert[2] = NO;
                     [self performSelectorOnMainThread:@selector(showAnnHighLimitAlert:) withObject:(id)[NSNumber numberWithFloat:fp2] waitUntilDone:NO];
-                    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:2] repeats:NO];
+                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:2] repeats:NO];
                 }
             }
             if (settingData.isAnnLowLimit)
@@ -499,7 +499,7 @@ NSString *characteristicUUIDString = @"AAAE";
                 {
                     isShowAlert[3] = NO;
                     [self performSelectorOnMainThread:@selector(showAnnLowLimitAlert:) withObject:[NSNumber numberWithFloat:fp2] waitUntilDone:NO];
-                    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:3] repeats:NO];
+                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:3] repeats:NO];
                 }
             }
         }

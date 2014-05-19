@@ -277,46 +277,6 @@ static NSString * DisplayAddressForAddress(NSData * address)
     return result;
 }
 
-static NSString * DisplayStringFromData(NSData *data)
-// Returns a human readable string for the given data.
-{
-    NSMutableString *   result;
-    NSUInteger          dataLength;
-    NSUInteger          dataIndex;
-    const uint8_t *     dataBytes;
-    
-    assert(data != nil);
-    
-    dataLength = [data length];
-    dataBytes  = [data bytes];
-    
-    result = [NSMutableString stringWithCapacity:dataLength];
-    assert(result != nil);
-    
-    [result appendString:@"\""];
-    for (dataIndex = 0; dataIndex < dataLength; dataIndex++) {
-        uint8_t     ch;
-        
-        ch = dataBytes[dataIndex];
-        if (ch == 10) {
-            [result appendString:@"\n"];
-        } else if (ch == 13) {
-            [result appendString:@"\r"];
-        } else if (ch == '"') {
-            [result appendString:@"\\\""];
-        } else if (ch == '\\') {
-            [result appendString:@"\\\\"];
-        } else if ( (ch >= ' ') && (ch < 127) ) {
-            [result appendFormat:@"%c", (int) ch];
-        } else {
-            [result appendFormat:@"\\x%02x", (unsigned int) ch];
-        }
-    }
-    [result appendString:@"\""];
-    
-    return result;
-}
-
 - (void)_readData
     // Called by the CFSocket read callback to actually read and process data 
     // from the socket.

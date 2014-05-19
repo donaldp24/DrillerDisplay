@@ -32,12 +32,12 @@
 
 - (IBAction)BeginEditing:(UITextField *)sender;
 - (IBAction)EndEditing:(UITextField *)sender;
-- (void)setViewMoveUp:(BOOL)moveUp height:(float)height;
+//- (void)setViewMoveUp:(BOOL)moveUp height:(float)height;
 - (void)keyboardWillShow:(NSNotification *)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
-- (IBAction)textFieldHideKeyboard:(id)sender;
+//- (IBAction)textFieldHideKeyboard:(id)sender;
 - (IBAction)onBackClicked:(id)sender;
 - (IBAction)btnBackgroundClicked:(id)sender;
 
