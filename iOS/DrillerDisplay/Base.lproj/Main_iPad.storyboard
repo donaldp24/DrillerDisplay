@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
@@ -333,7 +333,7 @@
                                                 <rect key="frame" x="357" y="75" width="129" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
                                                     <action selector="BeginEditing:" destination="rqw-fA-SsM" eventType="editingDidBegin" id="3ue-Bc-WhB"/>
                                                     <action selector="EndEditing:" destination="rqw-fA-SsM" eventType="editingDidEndOnExit" id="PXx-x0-fho"/>
@@ -362,7 +362,7 @@
                                                 <rect key="frame" x="357" y="220" width="129" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
                                                     <action selector="BeginEditing:" destination="rqw-fA-SsM" eventType="editingDidBegin" id="n3q-g4-KpM"/>
                                                     <action selector="EndEditing:" destination="rqw-fA-SsM" eventType="editingDidEndOnExit" id="Aj7-Ua-JbQ"/>
@@ -391,7 +391,7 @@
                                                 <rect key="frame" x="357" y="288" width="129" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
                                                     <action selector="BeginEditing:" destination="rqw-fA-SsM" eventType="editingDidBegin" id="pZh-QR-qcO"/>
                                                     <action selector="EndEditing:" destination="rqw-fA-SsM" eventType="editingDidEndOnExit" id="Q1B-Fs-gCy"/>
@@ -427,7 +427,7 @@
                                                 <rect key="frame" x="355" y="400" width="129" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
                                                     <action selector="BeginEditing:" destination="rqw-fA-SsM" eventType="editingDidBegin" id="Ueu-so-9Tz"/>
                                                     <action selector="EndEditing:" destination="rqw-fA-SsM" eventType="editingDidEndOnExit" id="FrW-g7-rZk"/>
@@ -456,7 +456,7 @@
                                                 <rect key="frame" x="355" y="468" width="129" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <connections>
                                                     <action selector="BeginEditing:" destination="rqw-fA-SsM" eventType="editingDidBegin" id="mQb-iF-KcR"/>
                                                     <action selector="EndEditing:" destination="rqw-fA-SsM" eventType="editingDidEndOnExit" id="frK-sW-vrh"/>
@@ -474,7 +474,7 @@
                                                 <rect key="frame" x="357" y="108" width="129" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
                                                     <action selector="BeginEditing:" destination="rqw-fA-SsM" eventType="editingDidBegin" id="kaK-WR-uXw"/>
                                                     <action selector="EndEditing:" destination="rqw-fA-SsM" eventType="editingDidEndOnExit" id="MqA-pC-39n"/>

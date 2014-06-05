@@ -126,16 +126,27 @@
     const struct sockaddr * addrPtr;
     socklen_t               addrLen;
     
-    assert(data != nil);
-    assert( (addr != nil) == self.isServer );
-    assert( (addr == nil) || ([addr length] <= sizeof(struct sockaddr_storage)) );
+    //assert(data != nil);
+    //assert( (addr != nil) == self.isServer );
+    //assert( (addr == nil) || ([addr length] <= sizeof(struct sockaddr_storage)) );
+    if (data == nil)
+        return;
+    if (!((addr != nil) == self.isServer))
+        return;
+    if (!((addr == nil) || ([addr length] <= sizeof(struct sockaddr_storage)) ))
+        return;
     
     sock = CFSocketGetNative(self->_cfSocket);
-    assert(sock >= 0);
+    //assert(sock >= 0);
+    if (!(sock >= 0))
+        return;
     
     if (addr == nil) {
         addr = self.hostAddress;
-        assert(addr != nil);
+        //assert(addr != nil);
+        if (!(addr != nil))
+            return;
+        
         addrPtr = NULL;
         addrLen = 0;
     } else {
@@ -150,7 +161,7 @@
         err = EPIPE;                    
     } else {
         // We ignore any short writes, which shouldn't happen for UDP anyway.
-        assert( (NSUInteger) bytesWritten == [data length] );
+        //assert( (NSUInteger) bytesWritten == [data length] );
         err = 0;
     }
     
@@ -263,14 +274,18 @@ static NSString * DisplayAddressForAddress(NSData * address)
                     addr4.sin_port        = addr6Ptr->sin6_port;
                     addr4.sin_addr.s_addr = addr6Ptr->sin6_addr.__u6_addr.__u6_addr32[3];
                     address = [NSData dataWithBytes:&addr4 length:sizeof(addr4)];
-                    assert(address != nil);
+                    //assert(address != nil);
+                    if (!(address != nil))
+                        return @"";
                 }
             }
         }
         err = getnameinfo([address bytes], (socklen_t) [address length], hostStr, sizeof(hostStr), servStr, sizeof(servStr), NI_NUMERICHOST | NI_NUMERICSERV);
         if (err == 0) {
             result = [NSString stringWithFormat:@"%s:%s", hostStr, servStr];
-            assert(result != nil);
+            //assert(result != nil);
+            if (!(result != nil))
+                return @"";
         }
     }
     
@@ -289,7 +304,9 @@ static NSString * DisplayAddressForAddress(NSData * address)
     ssize_t                 bytesRead;
     
     sock = CFSocketGetNative(self->_cfSocket);
-    assert(sock >= 0);
+    //assert(sock >= 0);
+    if (!(sock >= 0))
+        return;
     
     addrLen = sizeof(addr);
     bytesRead = recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr *) &addr, &addrLen);
@@ -304,9 +321,14 @@ static NSString * DisplayAddressForAddress(NSData * address)
         err = 0;
 
         dataObj = [NSData dataWithBytes:buffer length:bytesRead];
-        assert(dataObj != nil);
+        //assert(dataObj != nil);
+        if (!(dataObj != nil))
+            return;
+        
         addrObj = [NSData dataWithBytes:&addr  length:addrLen  ];
-        assert(addrObj != nil);
+        //assert(addrObj != nil);
+        if (!(addrObj != nil))
+            return;
 
         // Tell the delegate about the data.
         
@@ -347,16 +369,26 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     UDPEcho *       obj;
     
     obj = (__bridge UDPEcho *) info;
-    assert([obj isKindOfClass:[UDPEcho class]]);
+    //assert([obj isKindOfClass:[UDPEcho class]]);
+    if (!([obj isKindOfClass:[UDPEcho class]]))
+        return;
     
     #pragma unused(s)
-    assert(s == obj->_cfSocket);
+    //assert(s == obj->_cfSocket);
+    if (!(s == obj->_cfSocket))
+        return;
     #pragma unused(type)
-    assert(type == kCFSocketReadCallBack);
+    //assert(type == kCFSocketReadCallBack);
+    if (!(type == kCFSocketReadCallBack))
+        return;
     #pragma unused(address)
-    assert(address == nil);
+    //assert(address == nil);
+    if (!(address == nil))
+        return;
     #pragma unused(data)
-    assert(data == nil);
+    //assert(data == nil);
+    if (!(data == nil))
+        return;
     
     [obj _readData];
 }
@@ -376,11 +408,19 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
         const CFSocketContext   context = { 0, (__bridge void *)(self), NULL, NULL, NULL };
         CFRunLoopSourceRef      rls;
         
-        assert( (address == nil) == self.isServer );
-        assert( (address == nil) || ([address length] <= sizeof(struct sockaddr_storage)) );
-        assert(port < 65536);
+        //assert( (address == nil) == self.isServer );
+        if (!( (address == nil) == self.isServer ))
+            return NO;
+        //assert( (address == nil) || ([address length] <= sizeof(struct sockaddr_storage)) );
+        if (!( (address == nil) || ([address length] <= sizeof(struct sockaddr_storage)) ))
+            return NO;
+        //assert(port < 65536);
+        if (!(port < 65536))
+            return NO;
         
-        assert(self->_cfSocket == NULL);
+        //assert(self->_cfSocket == NULL);
+        if (!(self->_cfSocket == NULL))
+            return NO;
         
         // Create the UDP socket itself.
         
@@ -408,12 +448,14 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
                 // Client mode.  Set up the address on the caller-supplied address and port 
                 // number.
                 if ([address length] > sizeof(addr)) {
-                    assert(NO);         // very weird
+                    //assert(NO);         // very weird
                     [address getBytes:&addr length:sizeof(addr)];
                 } else {
                     [address getBytes:&addr length:[address length]];
                 }
-                assert(addr.sin_family == AF_INET);
+                //assert(addr.sin_family == AF_INET);
+                if (!(addr.sin_family == AF_INET))
+                    return NO;
                 addr.sin_port = htons(port);
                 err = connect(sock, (const struct sockaddr *) &addr, sizeof(addr));
             }
@@ -443,11 +485,16 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 
             // The socket will now take care of cleaning up our file descriptor.
 
-            assert( CFSocketGetSocketFlags(self->_cfSocket) & kCFSocketCloseOnInvalidate );
+            //assert( CFSocketGetSocketFlags(self->_cfSocket) & kCFSocketCloseOnInvalidate );
+            if (!( CFSocketGetSocketFlags(self->_cfSocket) & kCFSocketCloseOnInvalidate ))
+                return NO;
+            
             sock = -1;
 
             rls = CFSocketCreateRunLoopSource(NULL, self->_cfSocket, 0);
-            assert(rls != NULL);
+            //assert(rls != NULL);
+            if (!(rls != NULL))
+                return NO;
             
             CFRunLoopAddSource(CFRunLoopGetCurrent(), rls, kCFRunLoopDefaultMode);
             
@@ -458,9 +505,14 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
         
         if (sock != -1) {
             junk = close(sock);
-            assert(junk == 0);
+            //assert(junk == 0);
+            if (!(junk == 0))
+                return NO;
         }
-        assert( (err == 0) == (self->_cfSocket != NULL) );
+        //assert( (err == 0) == (self->_cfSocket != NULL) );
+        if (!( (err == 0) == (self->_cfSocket != NULL) ))
+            return NO;
+        
         if ( (self->_cfSocket == NULL) && (errorPtr != NULL) ) {
             *errorPtr = [NSError errorWithDomain:NSPOSIXErrorDomain code:err userInfo:nil];
         }
@@ -645,9 +697,13 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 - (void)startServerOnPort:(NSUInteger)port
     // See comment in header.
 {
-    assert( (port > 0) && (port < 65536) );
+    //assert( (port > 0) && (port < 65536) );
+    if (port <= 0 || port >= 65536)
+        return;
 
-    assert(self.port == 0);     // don't try and start a started object
+   // assert(self.port == 0);     // don't try and start a started object
+    
+    
     if (self.port == 0) {
         BOOL        success;
         NSError *   error;
@@ -666,7 +722,9 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
                 CFDataRef   localAddress;
                 
                 localAddress = CFSocketCopyAddress(self->_cfSocket);
-                assert(localAddress != NULL);
+                //assert(localAddress != NULL);
+                if (localAddress == NULL)
+                    return;
                 
                 [self.delegate echo:self didStartWithAddress:(__bridge NSData *) localAddress];
 
@@ -687,10 +745,19 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     Boolean             resolved;
     NSArray *           resolvedAddresses;
     
-    assert(self.port != 0);
-    assert(self->_cfHost != NULL);
-    assert(self->_cfSocket == NULL);
-    assert(self.hostAddress == nil);
+    //assert(self.port != 0);
+    //assert(self->_cfHost != NULL);
+    //assert(self->_cfSocket == NULL);
+    //assert(self.hostAddress == nil);
+    
+    if (self.port == 0)
+        return;
+    if (self->_cfHost == NULL)
+        return;
+    if (self->_cfSocket != NULL)
+        return;
+    if (self.hostAddress != nil)
+        return;
     
     error = nil;
     
@@ -705,7 +772,9 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
             
             addrPtr = (const struct sockaddr *) [address bytes];
             addrLen = [address length];
-            assert(addrLen >= sizeof(struct sockaddr));
+            //assert(addrLen >= sizeof(struct sockaddr));
+            if (addrLen <= sizeof(struct sockaddr))
+                return;
 
             // Try to create a connected CFSocket for this address.  If that fails, 
             // we move along to the next address.  If it succeeds, we're done.
@@ -722,7 +791,9 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
                     CFDataRef   hostAddress;
                     
                     hostAddress = CFSocketCopyPeerAddress(self->_cfSocket);
-                    assert(hostAddress != NULL);
+                    //assert(hostAddress != NULL);
+                    if (hostAddress == NULL)
+                        return;
                     
                     self.hostAddress = (__bridge NSData *) hostAddress;
                     
@@ -763,12 +834,19 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
     UDPEcho *    obj;
     
     obj = (__bridge UDPEcho *) info;
-    assert([obj isKindOfClass:[UDPEcho class]]);
+    //assert([obj isKindOfClass:[UDPEcho class]]);
+    if (![obj isKindOfClass:[UDPEcho class]])
+        return;
     
     #pragma unused(theHost)
-    assert(theHost == obj->_cfHost);
+    //assert(theHost == obj->_cfHost);
+    if (theHost != obj->_cfHost)
+        return;
     #pragma unused(typeInfo)
-    assert(typeInfo == kCFHostAddresses);
+    //assert(typeInfo == kCFHostAddresses);
+    if (typeInfo != kCFHostAddresses)
+        return;
+    
     
     if ( (error != NULL) && (error->domain != 0) ) {
         [obj _stopWithStreamError:*error];
@@ -780,19 +858,28 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 - (void)startConnectedToHostName:(NSString *)hostName port:(NSUInteger)port
     // See comment in header.
 {
-    assert(hostName != nil);
-    assert( (port > 0) && (port < 65536) );
+    //assert(hostName != nil);
+    //assert( (port > 0) && (port < 65536) );
+    if (hostName == nil)
+        return;
+    if (port <= 0 || port >= 65536)
+        return;
     
-    assert(self.port == 0);     // don't try and start a started object
+   // assert(self.port == 0);     // don't try and start a started object
+    
     if (self.port == 0) {
         Boolean             success;
         CFHostClientContext context = {0, (__bridge void*)self, NULL, NULL, NULL};
         CFStreamError       streamError;
 
-        assert(self->_cfHost == NULL);
+        //assert(self->_cfHost == NULL);
+        if (self->_cfHost != NULL)
+            return;
 
         self->_cfHost = CFHostCreateWithName(NULL, (__bridge CFStringRef) hostName);
-        assert(self->_cfHost != NULL);
+        //assert(self->_cfHost != NULL);
+        if (self->_cfHost == NULL)
+            return;
         
         CFHostSetClient(self->_cfHost, HostResolveCallback, &context);
         
@@ -815,7 +902,7 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
     // If you call -sendData: on a object in server mode or an object in client mode 
     // that's not fully set up (hostAddress is nil), we just ignore you.
     if (self.isServer || (self.hostAddress == nil) ) {
-        assert(NO);
+        //assert(NO);
     } else {
         [self _sendData:data toAddress:nil];
     }
@@ -865,7 +952,10 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 - (void)_stopWithError:(NSError *)error
     // Stops the object, reporting the supplied error to the delegate.
 {
-    assert(error != nil);
+    //assert(error != nil);
+    if (error == nil)
+        return;
+    
     [self stop];
     if ( (self.delegate != nil) && [self.delegate respondsToSelector:@selector(echo:didStopWithError:)] ) {
        // [[self retain] autorelease];
@@ -888,7 +978,9 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
         userInfo = nil;
     }
     error = [NSError errorWithDomain:(NSString *)kCFErrorDomainCFNetwork code:kCFHostErrorUnknown userInfo:userInfo];
-    assert(error != nil);
+    //assert(error != nil);
+    if (error == nil)
+        return;
     
     [self _stopWithError:error];
 }
