@@ -57,7 +57,7 @@ static SettingsData *_instance = nil;
 - (void)loadData
 {
     NSUserDefaults *config = [NSUserDefaults standardUserDefaults];
-    self.isBluetooth = NO;//[self readBoolEntry:config key:kDataBluetoothKey defaults:NO];
+    self.isBluetooth = [self readBoolEntry:config key:kDataBluetoothKey defaults:NO];
     self.ipAddress = [self readEntry:config key:kDataAddressKey defaults:@"255.255.255.255"];
     self.port = [self readIntEntry:config key:kDataPortKey defaults:7123];
     
