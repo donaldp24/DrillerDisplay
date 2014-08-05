@@ -21,6 +21,12 @@ static SettingsData *_instance = nil;
 #define kDataAnnHighKey   @"annhigh"
 #define kDataIsAnnLowKey   @"isannlow"
 #define kDataAnnLowKey   @"annlow"
+#define kDataIsRpmHighKey   @"isrpmhigh"
+#define kDataRpmHighKey     @"rpmhigh"
+#define kDataIsShowPipe     @"isshowpipe"
+#define kDataIsShowWob      @"isshowwob"
+#define kDataIsShowAnn      @"isshowann"
+#define kDataIsShowRpm      @"isshowrpm"
 
 
 @implementation SettingsData
@@ -50,6 +56,13 @@ static SettingsData *_instance = nil;
         self.annHighLimit = 100;
         self.isAnnLowLimit = YES;
         self.isAnnLowLimit = 0;
+        self.isRpmHighLimit = NO;
+        self.rpmHighLimit = 150;
+        
+        self.isShowPipe = YES;
+        self.isShowWob = NO;
+        self.isShowAnn = NO;
+        self.isShowRpm = YES;
     }
     return self;
 }
@@ -72,6 +85,14 @@ static SettingsData *_instance = nil;
     
     self.isAnnLowLimit = [self readBoolEntry:config key:kDataIsAnnLowKey defaults:NO];
     self.annLowLimit = [self readFloatEntry:config key:kDataAnnLowKey defaults:0.0];
+    
+    self.isRpmHighLimit = [self readBoolEntry:config key:kDataIsRpmHighKey defaults:NO];
+    self.rpmHighLimit = [self readFloatEntry:config key:kDataRpmHighKey defaults:150];
+    
+    self.isShowPipe = [self readBoolEntry:config key:kDataIsShowPipe defaults:YES];
+    self.isShowWob = [self readBoolEntry:config key:kDataIsShowWob defaults:NO];
+    self.isShowAnn = [self readBoolEntry:config key:kDataIsShowAnn defaults:NO];
+    self.isShowRpm = [self readBoolEntry:config key:kDataIsShowRpm defaults:YES];
 }
 
 - (void)saveData
@@ -92,6 +113,14 @@ static SettingsData *_instance = nil;
     
     [config setBool:self.isAnnLowLimit forKey:kDataIsAnnLowKey];
     [config setFloat:self.annLowLimit forKey:kDataAnnLowKey];
+    
+    [config setBool:self.isRpmHighLimit forKey:kDataIsRpmHighKey];
+    [config setFloat:self.rpmHighLimit forKey:kDataRpmHighKey];
+    
+    [config setBool:self.isShowPipe forKey:kDataIsShowPipe];
+    [config setBool:self.isShowWob forKey:kDataIsShowWob];
+    [config setBool:self.isShowAnn forKey:kDataIsShowAnn];
+    [config setBool:self.isShowRpm forKey:kDataIsShowRpm];
     
     [config synchronize];
 }

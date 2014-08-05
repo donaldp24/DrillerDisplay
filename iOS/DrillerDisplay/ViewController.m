@@ -13,12 +13,20 @@
 
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 
+#define UNIT_OF_MEASUREMENT_FONT [UIFont fontWithName:@"Helvetica" size:0.09]
+#define SHOW_UNIT_OF_MEASUREMENT    YES
+#define SCALE_DIVISIONS_WIDTH       0.008
+#define SCALE_SUB_DIVISIONS_WIDTH   0.006
+#define RANGE_LABELS_FONT_COLOR     [UIColor blackColor];
+#define RANGE_LABELS_WIDTH          0.04
+#define RANGE_LABELS_FONT           [UIFont fontWithName:@"Helvetica" size:0.04];
+
 NSString *serviceUUIDString = @"F926";
 NSString *characteristicUUIDString = @"AAAE";
 
 #define GAUGE_FONTCOLOR     [UIColor whiteColor]
 
-#define GUAGE1_MAXVALUE     360
+#define gaugeHs_MAXVALUE     360
 
 @interface ViewController ()
 
@@ -64,65 +72,122 @@ NSString *characteristicUUIDString = @"AAAE";
     UIColor *limitColor = RGB(231, 32, 43);
     UIColor *normalColor = RGB(255, 255, 255);
     
-    _guage1.maxValue = GUAGE1_MAXVALUE;
-    _guage1.scaleStartAngle = 0;
-    _guage1.scaleEndAngle = 360;
+    _gaugeHs.maxValue = gaugeHs_MAXVALUE;
+    _gaugeHs.scaleStartAngle = 0;
+    _gaugeHs.scaleEndAngle = 360;
     
-    _guage1.showRangeLabels = NO;
-    _guage1.rangeValues = @[ @0,                  @GUAGE1_MAXVALUE];
-    _guage1.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
-    _guage1.rangeLabels = @[ @"VERY LOW",          @"LOW"];
-    _guage1.unitOfMeasurement = @"0.0";
-    _guage1.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.1];
-    _guage1.showUnitOfMeasurement = YES;
-    _guage1.scaleDivisions = 8;
-    _guage1.scaleSubdivisions = 10;
-    _guage1.scaleDivisionsWidth = 0.008;
-    _guage1.scaleSubdivisionsWidth = 0.006;
-    _guage1.rangeLabelsFontColor = [UIColor blackColor];
-    _guage1.rangeLabelsWidth = 0.04;
-    _guage1.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
-    [_guage1 setValue:0 animated:YES];
+    _gaugeHs.showRangeLabels = NO;
+    _gaugeHs.rangeValues = @[ @0,                  @gaugeHs_MAXVALUE];
+    _gaugeHs.rangeColors = @[ RGB(255, 255, 255),    RGB(255, 255, 255)];
+    _gaugeHs.rangeLabels = @[ @"VERY LOW",          @"LOW"];
+    _gaugeHs.unitOfMeasurement = @"0.0";
+    _gaugeHs.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.1];
+    _gaugeHs.showUnitOfMeasurement = YES;
+    _gaugeHs.scaleDivisions = 8;
+    _gaugeHs.scaleSubdivisions = 10;
+    _gaugeHs.scaleDivisionsWidth = 0.008;
+    _gaugeHs.scaleSubdivisionsWidth = 0.006;
+    _gaugeHs.rangeLabelsFontColor = [UIColor blackColor];
+    _gaugeHs.rangeLabelsWidth = 0.04;
+    _gaugeHs.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    [_gaugeHs setValue:0 animated:YES];
     
     SettingsData *data = [SettingsData sharedData];
     
 
     
-    [self setGaugeRange:_guage2 preMin:data.pipeLowLimit preMax:data.pipeHighLimit];
-    _guage2.showRangeLabels = NO;
+    [self setGaugeRange:_gaugePipe preMin:data.pipeLowLimit preMax:data.pipeHighLimit];
+    _gaugePipe.showRangeLabels = NO;
     
-    _guage2.rangeValues = @[ [NSNumber numberWithFloat:_guage2.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_guage2.maxValue]];
-    _guage2.rangeColors = @[ limitColor, limitColor, normalColor, limitColor];
+    _gaugePipe.rangeValues = @[ [NSNumber numberWithFloat:_gaugePipe.minValue], [NSNumber numberWithFloat:data.pipeLowLimit], [NSNumber numberWithFloat:data.pipeHighLimit], [NSNumber numberWithFloat:_gaugePipe.maxValue]];
+    _gaugePipe.rangeColors = @[ limitColor, limitColor, normalColor, limitColor];
 
-    _guage2.unitOfMeasurement = @"0.0";
-    _guage2.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.1];
-    _guage2.showUnitOfMeasurement = YES;
+    _gaugePipe.unitOfMeasurement = @"0.0";
+    _gaugePipe.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.1];
+    _gaugePipe.showUnitOfMeasurement = YES;
     
-    _guage2.scaleDivisionsWidth = 0.008;
-    _guage2.scaleSubdivisionsWidth = 0.006;
-    _guage2.rangeLabelsFontColor = [UIColor blackColor];
-    _guage2.rangeLabelsWidth = 0.04;
-    _guage2.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
-    [_guage2 setValue:0 animated:YES];
+    _gaugePipe.scaleDivisionsWidth = 0.008;
+    _gaugePipe.scaleSubdivisionsWidth = 0.006;
+    _gaugePipe.rangeLabelsFontColor = [UIColor blackColor];
+    _gaugePipe.rangeLabelsWidth = 0.04;
+    _gaugePipe.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    [_gaugePipe setValue:0 animated:YES];
     
     
-    [self setGaugeRange:_guage3 preMin:data.annLowLimit preMax:data.annHighLimit];
+    [self setGaugeRange:_gaugeAnn preMin:data.annLowLimit preMax:data.annHighLimit];
     
-    _guage3.showRangeLabels = NO;
+    _gaugeAnn.showRangeLabels = NO;
     
-    _guage3.rangeValues = @[ [NSNumber numberWithFloat:_guage3.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_guage3.maxValue]];
-    _guage3.rangeColors = @[ limitColor, limitColor, normalColor, limitColor];
+    _gaugeAnn.rangeValues = @[ [NSNumber numberWithFloat:_gaugeAnn.minValue], [NSNumber numberWithFloat:data.annLowLimit], [NSNumber numberWithFloat:data.annHighLimit], [NSNumber numberWithFloat:_gaugeAnn.maxValue]];
+    _gaugeAnn.rangeColors = @[ limitColor, limitColor, normalColor, limitColor];
     
 
-    _guage3.unitOfMeasurement = @"0.0";
-    _guage3.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
-    _guage3.showUnitOfMeasurement = YES;
-    _guage3.scaleDivisionsWidth = 0.008;
-    _guage3.scaleSubdivisionsWidth = 0.006;
-    _guage3.rangeLabelsFontColor = [UIColor blackColor];
-    _guage3.rangeLabelsWidth = 0.04;
-    _guage3.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
-    [_guage3 setValue:0 animated:YES];
+    _gaugeAnn.unitOfMeasurement = @"0.0";
+    _gaugeAnn.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
+    _gaugeAnn.showUnitOfMeasurement = YES;
+    _gaugeAnn.scaleDivisionsWidth = 0.008;
+    _gaugeAnn.scaleSubdivisionsWidth = 0.006;
+    _gaugeAnn.rangeLabelsFontColor = [UIColor blackColor];
+    _gaugeAnn.rangeLabelsWidth = 0.04;
+    _gaugeAnn.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    [_gaugeAnn setValue:0 animated:YES];
+    
+    
+    ////////////////////////////////////////////////////
+    //[self setGaugeRange:_gaugeWob preMin:0 preMax:150.0];
+    CGFloat wobMin = 0.f;
+    CGFloat wobMax = 150.f;
+    _gaugeWob.minValue = wobMin;
+    _gaugeWob.maxValue = wobMax;
+    _gaugeWob.scaleDivisions = (int)((wobMax - wobMin) / 30);
+    _gaugeWob.scaleSubdivisions = 6;
+    
+    _gaugeWob.showRangeLabels = NO;
+    
+    _gaugeWob.rangeValues = @[ [NSNumber numberWithFloat:_gaugeWob.minValue], [NSNumber numberWithFloat:150.0], [NSNumber numberWithFloat:_gaugeWob.maxValue]];
+    _gaugeWob.rangeColors = @[ normalColor, normalColor, normalColor, normalColor];
+    
+    
+    _gaugeWob.unitOfMeasurement = @"0.0";
+    _gaugeWob.unitOfMeasurementFont = [UIFont fontWithName:@"Helvetica" size:0.09];
+    _gaugeWob.showUnitOfMeasurement = YES;
+    _gaugeWob.scaleDivisionsWidth = 0.008;
+    _gaugeWob.scaleSubdivisionsWidth = 0.006;
+    _gaugeWob.rangeLabelsFontColor = [UIColor blackColor];
+    _gaugeWob.rangeLabelsWidth = 0.04;
+    _gaugeWob.rangeLabelsFont = [UIFont fontWithName:@"Helvetica" size:0.04];
+    [_gaugeWob setValue:0 animated:YES];
+    
+    ////////////////////////////////////////////////////
+    //[self setGaugeRange:_gaugeWob preMin:0 preMax:150.0];
+    CGFloat rpmMin = 0.f;
+    CGFloat rpmMax = data.rpmHighLimit;
+    _gaugeRpm.minValue = rpmMin;
+    
+    if (rpmMax < rpmMin)
+        rpmMax = rpmMin;
+    
+    if (rpmMax <= 200)
+        _gaugeRpm.maxValue = 200;
+    else
+        _gaugeRpm.maxValue = ((int)(rpmMax / 100) + 1) * 100;
+    _gaugeRpm.scaleDivisions = 5;
+    _gaugeRpm.scaleSubdivisions = 5;
+    
+    _gaugeRpm.showRangeLabels = NO;
+    
+    _gaugeRpm.rangeValues = @[ [NSNumber numberWithFloat:_gaugeRpm.minValue], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:data.rpmHighLimit], [NSNumber numberWithFloat:_gaugeRpm.maxValue]];
+    _gaugeRpm.rangeColors = @[ limitColor, limitColor, normalColor, limitColor];
+    
+    _gaugeRpm.unitOfMeasurement = @"0.0";
+    _gaugeRpm.unitOfMeasurementFont = UNIT_OF_MEASUREMENT_FONT;
+    _gaugeRpm.showUnitOfMeasurement = SHOW_UNIT_OF_MEASUREMENT;
+    _gaugeRpm.scaleDivisionsWidth = SCALE_DIVISIONS_WIDTH;
+    _gaugeRpm.scaleSubdivisionsWidth = SCALE_SUB_DIVISIONS_WIDTH;
+    _gaugeRpm.rangeLabelsFontColor = RANGE_LABELS_FONT_COLOR;
+    _gaugeRpm.rangeLabelsWidth = RANGE_LABELS_WIDTH;
+    _gaugeRpm.rangeLabelsFont = RANGE_LABELS_FONT;
+    [_gaugeRpm setValue:0 animated:YES];
 }
 
 - (void)setGaugeRange:(WMGaugeView *)gauge preMin:(float)preMin preMax:(float)preMax
@@ -295,6 +360,7 @@ NSString *characteristicUUIDString = @"AAAE";
     CGRect rtBount = [[UIScreen mainScreen] bounds];
     CGRect rtAlarm = self.viewAlarm.frame;
     CGRect rtAlert = self.viewAlert.frame;
+    SettingsData *data = [SettingsData sharedData];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         CGFloat lblWidth = 42;
@@ -305,14 +371,96 @@ NSString *characteristicUUIDString = @"AAAE";
         CGFloat gaugeWidth = 109;
         CGFloat gaugeHeight = 109;
         
+        WMGaugeView *gauge1 = nil;
+        WMGaugeView *gauge2 = nil;
+        UILabel *label1 = nil;
+        UILabel *label2 = nil;
         
+        BOOL showTwoGauges = YES;
+        if (data.isShowPipe)
+        {
+            gauge1 = self.gaugePipe;
+            label1 = self.lblPipe;
+            
+            self.gaugeWob.hidden = self.lblWob.hidden = YES;
+            self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
+        }
+        else if (data.isShowWob)
+        {
+            gauge1 = self.gaugeWob;
+            label1 = self.lblWob;
+            
+            self.gaugePipe.hidden = self.lblPipe.hidden = YES;
+            self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
+        }
+        else if (data.isShowAnn)
+        {
+            gauge1 = self.gaugeAnn;
+            label1 = self.lblAnn;
+            
+            self.gaugeWob.hidden = self.lblWob.hidden = YES;
+            self.gaugePipe.hidden = self.lblPipe.hidden = YES;
+        }
+        else
+        {
+            gauge1 = nil;
+            label1 = nil;
+            
+            self.gaugePipe.hidden = self.lblPipe.hidden = YES;
+            self.gaugeWob.hidden = self.lblWob.hidden = YES;
+            self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
+        }
+        
+        if (data.isShowRpm)
+        {
+            if (gauge1 != nil)
+            {
+                gauge2 = self.gaugeRpm;
+                label2 = self.lblRpm;
+                
+                showTwoGauges = YES;
+            }
+            else
+            {
+                gauge1 = self.gaugeRpm;
+                label1 = self.lblRpm;
+                
+                showTwoGauges = NO;
+            }
+        }
+        else
+        {
+            gauge2 = nil;
+            label2 = nil;
+            
+            self.gaugeRpm.hidden = self.lblRpm.hidden = YES;
+            
+            showTwoGauges = NO;
+        }
         
         if(orientation == UIInterfaceOrientationPortrait) {
             
             // gauges
-            self.guage1.frame = CGRectMake(53, 64, bigGaugeWidth, bigGaugeHeight);
-            self.guage2.frame = CGRectMake(30, 345, gaugeWidth, gaugeHeight);
-            self.guage3.frame = CGRectMake(169, 345, gaugeWidth, gaugeHeight);
+            self.gaugeHs.frame = CGRectMake(53, 64, bigGaugeWidth, bigGaugeHeight);
+            
+            if (showTwoGauges)
+            {
+                gauge1.hidden = gauge2.hidden = label1.hidden = label2.hidden = NO;
+                
+                gauge1.frame = CGRectMake(30, 345, gaugeWidth, gaugeHeight);
+                gauge2.frame = CGRectMake(169, 345, gaugeWidth, gaugeHeight);
+                
+                // gauge labels
+                label1.frame = CGRectMake(63, 462, 42, 21);
+                label2.frame = CGRectMake(210, 462, 42, 21);
+            }
+            else
+            {
+                gauge1.hidden = label1.hidden = NO;
+                
+                gauge1.frame = CGRectMake(100, 345, gaugeWidth, gaugeHeight);
+                label1.frame = CGRectMake(133, 462, 42, 21);
+            }
             
             // labels
             self.lblInc.frame = CGRectMake(9, 299, lblWidth, lblHeight);
@@ -321,21 +469,35 @@ NSString *characteristicUUIDString = @"AAAE";
             self.azimuth.frame = CGRectMake(154, 299, valueWidth, lblHeight);
             self.lblMd.frame = CGRectMake(211, 299, lblWidth, lblHeight);
             self.measureDepth.frame = CGRectMake(261, 299, valueWidth, lblHeight);
-            
-            self.lblPipe.frame = CGRectMake(63, 462, 42, 21);
-            self.lblAnn.frame = CGRectMake(210, 462, 42, 21);
-            
-            
+
+            // alarm, alert
             self.viewAlarm.frame = CGRectMake(rtBount.size.width / 2 - rtAlarm.size.width / 2, rtBount.size.height / 2 - rtAlarm.size.height, rtAlarm.size.width, rtAlarm.size.height);
             
             self.viewAlert.frame = CGRectMake(rtBount.size.width / 2 - rtAlert.size.width / 2, rtBount.size.height / 2, rtAlert.size.width, rtAlert.size.height);
 
         }
         else {
+            
+            self.gaugeHs.frame = CGRectMake(33, 64, bigGaugeWidth, bigGaugeHeight);
+            
             // gauges
-            self.guage1.frame = CGRectMake(33, 64, bigGaugeWidth, bigGaugeHeight);
-            self.guage2.frame = CGRectMake(400, 36, gaugeWidth, gaugeHeight);
-            self.guage3.frame = CGRectMake(400, 186, gaugeWidth, gaugeHeight);
+            if (showTwoGauges)
+            {
+                gauge1.hidden = gauge2.hidden = label1.hidden = label2.hidden = NO;
+                
+                gauge1.frame = CGRectMake(400, 36, gaugeWidth, gaugeHeight);
+                gauge2.frame = CGRectMake(400, 186, gaugeWidth, gaugeHeight);
+                
+                label1.frame = CGRectMake(433, 155, 42, 21);
+                label2.frame = CGRectMake(433, 296, 42, 21);
+            }
+            else
+            {
+                gauge1.hidden = label1.hidden = NO;
+                
+                gauge1.frame = CGRectMake(400, 111, gaugeWidth, gaugeHeight);
+                label1.frame = CGRectMake(433, 230, 42, 21);
+            }
             
             CGFloat lblLeft = 280;
             CGFloat valueLeft = 330;
@@ -350,8 +512,7 @@ NSString *characteristicUUIDString = @"AAAE";
             self.lblMd.frame = CGRectMake(lblLeft, 151, lblWidth, lblHeight);
             self.measureDepth.frame = CGRectMake(valueLeft, 151, valueWidth, lblHeight);
             
-            self.lblPipe.frame = CGRectMake(433, 155, 42, 21);
-            self.lblAnn.frame = CGRectMake(433, 296, 42, 21);
+            
             
             self.viewAlarm.frame = CGRectMake(rtBount.size.height / 2 - rtAlarm.size.width / 2, rtBount.size.width / 2 - rtAlarm.size.height, rtAlarm.size.width, rtAlarm.size.height);
             
@@ -369,11 +530,99 @@ NSString *characteristicUUIDString = @"AAAE";
         CGFloat gaugeWidth = 191;
         CGFloat gaugeHeight = 191;
         
+        WMGaugeView *gauge1 = nil;
+        WMGaugeView *gauge2 = nil;
+        WMGaugeView *gauge3 = nil;
+        
+        UILabel *label1 = nil;
+        UILabel *label2 = nil;
+        UILabel *label3 = nil;
+        
+        self.gaugePipe.hidden = self.lblPipe.hidden = YES;
+        self.gaugeWob.hidden = self.lblWob.hidden = YES;
+        self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
+        self.gaugeRpm.hidden = self.lblRpm.hidden = YES;
+        
+        if (data.isShowPipe) {
+            gauge1 = self.gaugePipe;
+            label1 = self.lblPipe;
+        }
+        else if (data.isShowWob)
+        {
+            gauge1 = self.gaugeWob;
+            label1 = self.lblWob;
+        }
+        
+        if (data.isShowAnn)
+        {
+            if (gauge1 == nil)
+            {
+                gauge1 = self.gaugeAnn;
+                label1 = self.lblAnn;
+            }
+            else
+            {
+                gauge2 = self.gaugeAnn;
+                label2 = self.lblAnn;
+            }
+        }
+        
+        if (data.isShowRpm)
+        {
+            if (gauge1 == nil)
+            {
+                gauge1 = self.gaugeRpm;
+                label1 = self.lblRpm;
+            }
+            else if (gauge2 == nil)
+            {
+                gauge2 = self.gaugeRpm;
+                label2 = self.lblRpm;
+            }
+            else
+            {
+                gauge3 = self.gaugeRpm;
+                label3 = self.lblRpm;
+            }
+        }
+        
         if(orientation == UIInterfaceOrientationPortrait) {
             // gauges
-            self.guage1.frame = CGRectMake(170, 56, bigGaugeWidth, bigGaugeHeight);
-            self.guage2.frame = CGRectMake(118, 610, gaugeWidth, gaugeHeight);
-            self.guage3.frame = CGRectMake(471, 610, gaugeWidth, gaugeHeight);
+            self.gaugeHs.frame = CGRectMake(170, 56, bigGaugeWidth, bigGaugeHeight);
+            
+            
+            if (gauge3 != nil)
+            {
+                gauge1.hidden = label1.hidden = NO;
+                gauge2.hidden = label2.hidden = NO;
+                gauge3.hidden = label3.hidden = NO;
+                
+                gauge1.frame = CGRectMake(50, 610, gaugeWidth, gaugeHeight);
+                gauge2.frame = CGRectMake(290, 610, gaugeWidth, gaugeHeight);
+                gauge3.frame = CGRectMake(530, 610, gaugeWidth, gaugeHeight);
+                
+                label1.frame = CGRectMake(124, 815, lblWidth, lblHeight);
+                label2.frame = CGRectMake(364, 815, lblWidth, lblHeight);
+                label3.frame = CGRectMake(604, 815, lblWidth, lblHeight);
+            }
+            else if (gauge2 != nil)
+            {
+                gauge1.hidden = label1.hidden = NO;
+                gauge2.hidden = label2.hidden = NO;
+               
+                gauge1.frame = CGRectMake(118, 610, gaugeWidth, gaugeHeight);
+                gauge2.frame = CGRectMake(471, 610, gaugeWidth, gaugeHeight);
+                
+                label1.frame = CGRectMake(192, 815, lblWidth, lblHeight);
+                label2.frame = CGRectMake(545, 815, lblWidth, lblHeight);
+            }
+            else if (gauge1 != nil)
+            {
+                gauge1.hidden = label1.hidden = NO;
+                
+                gauge1.frame = CGRectMake(290, 610, gaugeWidth, gaugeHeight);
+                label1.frame = CGRectMake(364, 815, lblWidth, lblHeight);
+            }
             
             // labels
             CGFloat lblTop = 501;
@@ -384,8 +633,7 @@ NSString *characteristicUUIDString = @"AAAE";
             self.lblMd.frame = CGRectMake(432, lblTop, lblWidth, lblHeight);
             self.measureDepth.frame = CGRectMake(482, lblTop, valueWidth, lblHeight);
             
-            self.lblPipe.frame = CGRectMake(192, 817, lblWidth, lblHeight);
-            self.lblAnn.frame = CGRectMake(545, 817, lblWidth, lblHeight);
+            
             
             self.viewAlarm.frame = CGRectMake(rtBount.size.width / 2 - rtAlarm.size.width / 2, rtBount.size.height / 2 - rtAlarm.size.height, rtAlarm.size.width, rtAlarm.size.height);
             
@@ -393,9 +641,40 @@ NSString *characteristicUUIDString = @"AAAE";
         }
         else {
             // gauges
-            self.guage1.frame = CGRectMake(111, 180, bigGaugeWidth, bigGaugeHeight);
-            self.guage2.frame = CGRectMake(730, 148, gaugeWidth, gaugeHeight);
-            self.guage3.frame = CGRectMake(730, 411, gaugeWidth, gaugeHeight);
+            self.gaugeHs.frame = CGRectMake(111, 180, bigGaugeWidth, bigGaugeHeight);
+            
+            if (gauge3 != nil)
+            {
+                gauge1.hidden = label1.hidden = NO;
+                gauge2.hidden = label2.hidden = NO;
+                gauge3.hidden = label3.hidden = NO;
+                
+                gauge1.frame = CGRectMake(730, 40, gaugeWidth, gaugeHeight);
+                gauge2.frame = CGRectMake(730, 285, gaugeWidth, gaugeHeight);
+                gauge3.frame = CGRectMake(730, 530, gaugeWidth, gaugeHeight);
+                
+                label1.frame = CGRectMake(800, 240, 42, 21);
+                label2.frame = CGRectMake(800, 485, 42, 21);
+                label3.frame = CGRectMake(800, 730, 42, 21);
+            }
+            else if (gauge2 != nil)
+            {
+                gauge1.hidden = label1.hidden = NO;
+                gauge2.hidden = label2.hidden = NO;
+
+                gauge1.frame = CGRectMake(730, 148, gaugeWidth, gaugeHeight);
+                gauge2.frame = CGRectMake(730, 411, gaugeWidth, gaugeHeight);
+                
+                label1.frame = CGRectMake(800, 348, 42, 21);
+                label2.frame = CGRectMake(800, 611, 42, 21);
+            }
+            else if (gauge1 != nil)
+            {
+                gauge1.hidden = label1.hidden = NO;
+                
+                gauge1.frame = CGRectMake(730, 290, gaugeWidth, gaugeHeight);
+                label1.frame = CGRectMake(800, 490, 42, 21);
+            }
             
             CGFloat lblLeft = 573;
             CGFloat valueLeft = 614;
@@ -410,8 +689,7 @@ NSString *characteristicUUIDString = @"AAAE";
             self.lblMd.frame = CGRectMake(lblLeft, 401, lblWidth, lblHeight);
             self.measureDepth.frame = CGRectMake(valueLeft, 401, valueWidth, lblHeight);
             
-            self.lblPipe.frame = CGRectMake(800, 357, 42, 21);
-            self.lblAnn.frame = CGRectMake(800, 622, 42, 21);
+            
             
             self.viewAlarm.frame = CGRectMake(rtBount.size.height / 2 - rtAlarm.size.width / 2, rtBount.size.width / 2 - rtAlarm.size.height, rtAlarm.size.width, rtAlarm.size.height);
             
@@ -455,51 +733,60 @@ NSString *characteristicUUIDString = @"AAAE";
         SettingsData *settingData = [SettingsData sharedData];
         if ([dictionary objectForKey:@"NewTF"]){
             float tf = [[[notification userInfo] valueForKey:@"NewTF"] floatValue];
-            [self.guage1 setValue:tf];
+            [self.gaugeHs setValue:tf];
         }
         if ([dictionary objectForKey:@"NewP1"]){
-            float fp1 = [[[notification userInfo] valueForKey:@"NewP1"] floatValue];
-            [self.guage2 setValue:fp1];
             
-            if (settingData.isPipeHighLimit)
+            
+            if (settingData.isShowPipe)
             {
-                if (settingData.pipeHighLimit < fp1 && isShowAlert[0] == YES)
+                float fp1 = [[[notification userInfo] valueForKey:@"NewP1"] floatValue];
+                [self.gaugePipe setValue:fp1];
+                
+                if (settingData.isPipeHighLimit)
                 {
-                    isShowAlert[0] = NO;
-                    [self performSelectorOnMainThread:@selector(showPipeHighLimitAlert:) withObject:(id)[NSNumber numberWithFloat:fp1] waitUntilDone:NO];
-                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:0] repeats:NO];
+                    if (settingData.pipeHighLimit < fp1 && isShowAlert[0] == YES)
+                    {
+                        isShowAlert[0] = NO;
+                        [self performSelectorOnMainThread:@selector(showPipeHighLimitAlert:) withObject:(id)[NSNumber numberWithFloat:fp1] waitUntilDone:NO];
+                        /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:0] repeats:NO];
+                    }
                 }
-            }
-            if (settingData.isPipeLowLimit)
-            {
-                if (settingData.pipeLowLimit > fp1 && isShowAlert[1] == YES)
+                if (settingData.isPipeLowLimit)
                 {
-                    isShowAlert[1] = NO;
-                    [self performSelectorOnMainThread:@selector(showPipeLowLimitAlert:) withObject:[NSNumber numberWithFloat:fp1] waitUntilDone:NO];
-                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:1] repeats:NO];
+                    if (settingData.pipeLowLimit > fp1 && isShowAlert[1] == YES)
+                    {
+                        isShowAlert[1] = NO;
+                        [self performSelectorOnMainThread:@selector(showPipeLowLimitAlert:) withObject:[NSNumber numberWithFloat:fp1] waitUntilDone:NO];
+                        /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:1] repeats:NO];
+                    }
                 }
             }
         }
         if ([dictionary objectForKey:@"NewP2"]){
-            float fp2 = [[[notification userInfo] valueForKey:@"NewP2"] floatValue];
-            [self.guage3 setValue:fp2];
             
-            if (settingData.isAnnHighLimit)
+            if (settingData.isShowAnn)
             {
-                if (settingData.annHighLimit < fp2 && isShowAlert[2] == YES)
+                float fp2 = [[[notification userInfo] valueForKey:@"NewP2"] floatValue];
+                [self.gaugeAnn setValue:fp2];
+                
+                if (settingData.isAnnHighLimit)
                 {
-                    isShowAlert[2] = NO;
-                    [self performSelectorOnMainThread:@selector(showAnnHighLimitAlert:) withObject:(id)[NSNumber numberWithFloat:fp2] waitUntilDone:NO];
-                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:2] repeats:NO];
+                    if (settingData.annHighLimit < fp2 && isShowAlert[2] == YES)
+                    {
+                        isShowAlert[2] = NO;
+                        [self performSelectorOnMainThread:@selector(showAnnHighLimitAlert:) withObject:(id)[NSNumber numberWithFloat:fp2] waitUntilDone:NO];
+                        /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:(id)[NSNumber numberWithInteger:2] repeats:NO];
+                    }
                 }
-            }
-            if (settingData.isAnnLowLimit)
-            {
-                if (settingData.annLowLimit > fp2 && isShowAlert[3] == YES)
+                if (settingData.isAnnLowLimit)
                 {
-                    isShowAlert[3] = NO;
-                    [self performSelectorOnMainThread:@selector(showAnnLowLimitAlert:) withObject:[NSNumber numberWithFloat:fp2] waitUntilDone:NO];
-                    /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:3] repeats:NO];
+                    if (settingData.annLowLimit > fp2 && isShowAlert[3] == YES)
+                    {
+                        isShowAlert[3] = NO;
+                        [self performSelectorOnMainThread:@selector(showAnnLowLimitAlert:) withObject:[NSNumber numberWithFloat:fp2] waitUntilDone:NO];
+                        /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:3] repeats:NO];
+                    }
                 }
             }
         }
@@ -521,8 +808,30 @@ NSString *characteristicUUIDString = @"AAAE";
             [self performSelectorOnMainThread:@selector(addReceivedText:)withObject:msg waitUntilDone:NO];
         }
         if ([dictionary objectForKey:@"NewRPM"]){
-            //float rpm = [[[notification userInfo] valueForKey:@"NewRPM"] floatValue];
-            //[self.rpm setText:[NSString stringWithFormat:@"%1.0f", rpm]];
+            
+            if (settingData.isShowRpm)
+            {
+                float rpm = [[[notification userInfo] valueForKey:@"NewRPM"] floatValue];
+                [self.gaugeRpm setValue:rpm];
+                
+                if (settingData.isRpmHighLimit)
+                {
+                    if (settingData.rpmHighLimit < rpm && isShowAlert[4] == YES)
+                    {
+                        isShowAlert[4] = NO;
+                        [self performSelectorOnMainThread:@selector(showRpmHighLimitAlert:) withObject:[NSNumber numberWithFloat:rpm] waitUntilDone:NO];
+                        /* NSTimer *timer = */ [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(alertTimerProc:) userInfo:[NSNumber numberWithInteger:3] repeats:NO];
+                    }
+                }
+            }
+        }
+        if ([dictionary objectForKey:@"NewWOB"]){
+            
+            if (settingData.isShowWob)
+            {
+                float wob = [[[notification userInfo] valueForKey:@"NewWOB"] floatValue];
+                [self.gaugeWob setValue:wob];
+            }
         }
         //dataIn.hidden = ! dataIn.hidden;
         
@@ -612,6 +921,10 @@ NSString *characteristicUUIDString = @"AAAE";
             else if ([secretCode isEqualToString: @"rp="])
             {
                 forKeyName = @"NewRPM";
+            }
+            else if ([secretCode isEqualToString:@"wb="])
+            {
+                forKeyName = @"NewWOB";
             }
             userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:theFloatValue] forKey:forKeyName];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NewValues" object:nil userInfo:userInfo];
@@ -726,6 +1039,12 @@ NSString *characteristicUUIDString = @"AAAE";
 {
     NSString *strTitle = @"Annular low limit alert";
     [self showAlert:strTitle limit:[SettingsData sharedData].annLowLimit value:[value floatValue]];
+}
+
+- (void)showRpmHighLimitAlert:(NSNumber *)value
+{
+    NSString *strTitle = @"RPM high limit alert";
+    [self showAlert:strTitle limit:[SettingsData sharedData].rpmHighLimit value:[value floatValue]];
 }
 
 @end

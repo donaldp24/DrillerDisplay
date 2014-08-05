@@ -45,11 +45,28 @@
     self.txtAnnHighLimit.text = [NSString stringWithFormat:@"%.1f", data.annHighLimit];
     self.switchAnnLowLimit.on = data.isAnnLowLimit;
     self.txtAnnLowLimit.text = [NSString stringWithFormat:@"%.1f", data.annLowLimit];
+    self.switchRpmHighLimit.on = data.isRpmHighLimit;
+    self.txtRpmHighLimit.text = [NSString stringWithFormat:@"%.1f", data.rpmHighLimit];
     
-    [self.viewMain setContentSize:CGSizeMake(self.view.frame.size.width, 568)];
+    [self.btnShowPipe setSelected:data.isShowPipe];
+    [self.btnShowWob setSelected:data.isShowWob];
+    [self.btnShowAnn setSelected:data.isShowAnn];
+    [self.btnShowRpm setSelected:data.isShowRpm];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    
+        [(UIScrollView *)self.view setContentSize:CGSizeMake(self.view.frame.size.width, 788)];
+    }
+    else
+    {
+        [(UIScrollView *)self.view setContentSize:CGSizeMake(self.view.frame.size.width, 818)];
+    }
     
     keyboardVisible = false;
     curTextField = nil;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap:)];
+    [self.view addGestureRecognizer:tap];
 
 }
 
@@ -88,26 +105,24 @@
 
 -(void)layoutSubviewsForOrientation:(UIInterfaceOrientation) orientation {
     
-    CGRect rtMain = self.viewMain.frame;
+
     CGRect rtContainer = self.ctrlContainer.frame;
     CGRect rtScreen = [[UIScreen mainScreen] bounds];
     
     if(orientation == UIInterfaceOrientationPortrait) {
-        rtMain = CGRectMake(0, 50, rtScreen.size.width, rtScreen.size.height - 50);
-        rtContainer = CGRectMake(0, 0, rtMain.size.width, rtMain.size.height);
-        self.viewMain.frame = rtMain;
+        //rtMain = CGRectMake(0, 50, rtScreen.size.width, rtScreen.size.height - 50);
+        rtContainer = CGRectMake(0, rtContainer.origin.y, rtScreen.size.width, rtContainer.size.height);
+        //self.viewMain.frame = rtMain;
         self.ctrlContainer.frame = rtContainer;
         
         
-        self.btnBg.frame = CGRectMake(0, 0, rtMain.size.width, rtContainer.size.height);
     }
     else {
-        rtMain = CGRectMake(0, 50, rtScreen.size.height, rtScreen.size.width - 50);
-        rtContainer = CGRectMake(rtMain.size.width / 2 - rtContainer.size.width / 2, 0, rtContainer.size.width, rtContainer.size.height);
-        self.viewMain.frame = rtMain;
+        //rtMain = CGRectMake(0, 50, rtScreen.size.height, rtScreen.size.width - 50);
+        rtContainer = CGRectMake(rtScreen.size.height / 2 - rtContainer.size.width / 2, rtContainer.origin.y, rtContainer.size.width, rtContainer.size.height);
+        //self.viewMain.frame = rtMain;
         self.ctrlContainer.frame = rtContainer;
 
-        self.btnBg.frame = CGRectMake(0, 0, rtMain.size.width, rtContainer.size.height);
     }
     
 }
@@ -131,6 +146,14 @@
     data.annHighLimit = [self.txtAnnHighLimit.text floatValue];
     data.isAnnLowLimit = self.switchAnnLowLimit.on;
     data.annLowLimit = [self.txtAnnLowLimit.text floatValue];
+    
+    data.isRpmHighLimit = self.switchRpmHighLimit.on;
+    data.rpmHighLimit = [self.txtRpmHighLimit.text floatValue];
+    
+    data.isShowPipe = self.btnShowPipe.selected;
+    data.isShowWob = self.btnShowWob.selected;
+    data.isShowAnn = self.btnShowAnn.selected;
+    data.isShowRpm = self.btnShowRpm.selected;
     
     [data saveData];
     
@@ -194,6 +217,57 @@
         [curTextField resignFirstResponder];
 }
 
+- (IBAction)onBtnShowPipeClicked:(id)sender
+{
+    self.btnShowPipe.selected = !self.btnShowPipe.selected;
+    
+    if (self.btnShowPipe.selected )
+    {
+        self.btnShowWob.selected = NO;
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+            self.btnShowAnn.selected = NO;
+    }
+    
+}
 
+- (IBAction)onBtnShowWobClicked:(id)sender
+{
+    self.btnShowWob.selected = !self.btnShowWob.selected;
+    
+    if (self.btnShowWob.selected)
+    {
+        self.btnShowPipe.selected = NO;
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+            self.btnShowAnn.selected = NO;
+    }
+}
+
+- (IBAction)onBtnShowAnnClicked:(id)sender
+{
+    self.btnShowAnn.selected = !self.btnShowAnn.selected;
+    
+    if (self.btnShowAnn.selected)
+    {
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            self.btnShowPipe.selected = NO;
+            self.btnShowWob.selected = NO;
+        }
+    }
+}
+
+- (IBAction)onBtnShowRpmClicked:(id)sender
+{
+    self.btnShowRpm.selected = !self.btnShowRpm.selected;
+}
+
+# pragma mark Gesture selector
+- (void)backgroundTap:(UITapGestureRecognizer *)backgroundTap {
+    if(curTextField){
+        [curTextField resignFirstResponder];
+    }
+}
 
 @end

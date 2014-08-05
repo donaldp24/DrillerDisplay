@@ -14,8 +14,6 @@
     
 }
 
-@property (nonatomic, retain) IBOutlet UIImageView *imgBg;
-@property (nonatomic, retain) IBOutlet UIScrollView *viewMain;
 @property (nonatomic, retain) IBOutlet UIView *ctrlContainer;
 @property (nonatomic, retain) IBOutlet UISwitch *switchBluetooth;
 @property (nonatomic, retain) IBOutlet UITextField *txtLocalIp;
@@ -28,7 +26,14 @@
 @property (nonatomic, retain) IBOutlet UITextField *txtAnnHighLimit;
 @property (nonatomic, retain) IBOutlet UISwitch *switchAnnLowLimit;
 @property (nonatomic, retain) IBOutlet UITextField *txtAnnLowLimit;
-@property (nonatomic, retain) IBOutlet UIButton *btnBg;
+
+@property (nonatomic, retain) IBOutlet UISwitch *switchRpmHighLimit;
+@property (nonatomic, retain) IBOutlet UITextField *txtRpmHighLimit;
+@property (nonatomic, retain) IBOutlet UIButton *btnShowPipe;
+@property (nonatomic, retain) IBOutlet UIButton *btnShowWob;
+@property (nonatomic, retain) IBOutlet UIButton *btnShowAnn;
+@property (nonatomic, retain) IBOutlet UIButton *btnShowRpm;
+
 
 - (IBAction)BeginEditing:(UITextField *)sender;
 - (IBAction)EndEditing:(UITextField *)sender;

@@ -21,6 +21,12 @@
 @property (nonatomic) float annHighLimit;
 @property (nonatomic) BOOL isAnnLowLimit;
 @property (nonatomic) float annLowLimit;
+@property (nonatomic) BOOL isRpmHighLimit;
+@property (nonatomic) float rpmHighLimit;
+@property (nonatomic) BOOL isShowPipe;
+@property (nonatomic) BOOL isShowWob;
+@property (nonatomic) BOOL isShowAnn;
+@property (nonatomic) BOOL isShowRpm;
 
 + (SettingsData *)sharedData;
 

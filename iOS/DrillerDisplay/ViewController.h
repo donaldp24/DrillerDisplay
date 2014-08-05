@@ -21,7 +21,7 @@
     BOOL    dataReceived;
     
     NSTimer *timer;
-    BOOL   isShowAlert[4];
+    BOOL   isShowAlert[5];
 }
 
 @property (nonatomic, retain, readwrite) UDPlistenerDelegate *listener;
@@ -36,9 +36,11 @@
 @property (nonatomic, retain) IBOutlet UILabel *lblAlertLimitValue;
 @property (nonatomic, retain) IBOutlet UILabel *lblAlertCurrValue;
 
-@property (nonatomic, retain) IBOutlet WMGaugeView *guage1;
-@property (nonatomic, retain) IBOutlet WMGaugeView *guage2;
-@property (nonatomic, retain) IBOutlet WMGaugeView *guage3;
+@property (nonatomic, retain) IBOutlet WMGaugeView *gaugeHs; // ahstf, -> ah hs st tf
+@property (nonatomic, retain) IBOutlet WMGaugeView *gaugePipe; // p1 - pipe
+@property (nonatomic, retain) IBOutlet WMGaugeView *gaugeAnn; // p2 - ann
+@property (nonatomic, retain) IBOutlet WMGaugeView *gaugeWob; // wob - wb
+@property (nonatomic, retain) IBOutlet WMGaugeView *gaugeRpm; // rpm - rp
 
 @property (nonatomic, retain) IBOutlet UILabel *lblMd;
 @property (nonatomic, retain) IBOutlet UILabel *measureDepth;       //md
@@ -53,6 +55,8 @@
 
 @property (nonatomic, retain) IBOutlet UILabel *lblPipe;
 @property (nonatomic, retain) IBOutlet UILabel *lblAnn;
+@property (nonatomic, retain) IBOutlet UILabel *lblWob;
+@property (nonatomic, retain) IBOutlet UILabel *lblRpm;
 
 @property (nonatomic, retain) IBOutlet UIImageView *imgBg;
 

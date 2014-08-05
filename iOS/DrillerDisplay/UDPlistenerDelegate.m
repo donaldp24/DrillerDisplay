@@ -156,6 +156,10 @@
             {
                 forKeyName = @"NewRPM";
             }
+            else if ([secretCode isEqualToString:@"wb="])
+            {
+                forKeyName = @"NewWOB";
+            }
             userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:theFloatValue] forKey:forKeyName];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NewValues" object:nil userInfo:userInfo];
         }
