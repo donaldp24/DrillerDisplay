@@ -10,6 +10,8 @@
 #import "SettingsViewController.h"
 #import "SettingsData.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "AppDelegate.h"
+#import "AutoMessageBox.h"
 
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 
@@ -55,8 +57,8 @@ NSString *characteristicUUIDString = @"AAAE";
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"carbon_fibre"]]];
     
-    
-    
+    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
+    appDelegate.viewController = self;
     
 }
 
@@ -260,7 +262,7 @@ NSString *characteristicUUIDString = @"AAAE";
 - (void)viewDidAppear:(BOOL)animated
 {
     
-    for (int i = 0; i < 4; i ++) {
+    for (int i = 0; i < 5; i ++) {
         isShowAlert[i] = YES;
     }
     
@@ -273,6 +275,7 @@ NSString *characteristicUUIDString = @"AAAE";
     
     if (data.isBluetooth)
     {
+        // start advertising
         peripheralServer = [[PeripheralServer alloc] initWithDelegate:self];
         peripheralServer.serviceName = @"VMPeripheral";
         peripheralServer.serviceUUID = [CBUUID UUIDWithString:serviceUUIDString];
@@ -285,7 +288,9 @@ NSString *characteristicUUIDString = @"AAAE";
     }
     else
     {
+        // start listen
         [NSThread detachNewThreadSelector:@selector(runListener) toTarget:self withObject:nil];
+        
         [self.lblStatus setText:@"wifi - listening..."];
         [self.indicator startAnimating];
     }
@@ -294,6 +299,9 @@ NSString *characteristicUUIDString = @"AAAE";
     
     
     [self initGauges];
+    
+    [self setStatusImageGray];
+    
     
 }
 
@@ -311,6 +319,16 @@ NSString *characteristicUUIDString = @"AAAE";
     }
     [timer invalidate];
     timer = nil;
+}
+
+- (void)setStatusImageGray
+{
+    self.ivStatus.image = [UIImage imageNamed:@"status_gray"];
+}
+
+- (void)setStatusImageGreen
+{
+    self.ivStatus.image = [UIImage imageNamed:@"status_green"];
 }
 
 #pragma mark - actions
@@ -341,6 +359,8 @@ NSString *characteristicUUIDString = @"AAAE";
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    [AutoMessageBox fadeOutMsg];
+    
     if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
         toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
     {
@@ -837,11 +857,18 @@ NSString *characteristicUUIDString = @"AAAE";
         
         dataReceived = YES;
         self.lblStatus.text = @"Data receiving...";
+        [self setStatusImageGreen];
+        [self performSelector:@selector(setStatusImageGray) withObject:nil afterDelay:1.0];
     }
 }
 
 - (void)addReceivedText:(NSString *)str
 {
+    if (str != nil && ![str isEqualToString:@""] && ![str isEqualToString:@"no msg"])
+    {
+        // show message box       
+        [AutoMessageBox AutoMsgInView:self.view withText:str];
+    }
     /*
     NSString *msg;
     if (self.receivedText.text.length == 0)
@@ -853,8 +880,6 @@ NSString *characteristicUUIDString = @"AAAE";
     [self.receivedText scrollRangeToVisible:range];
      */
 }
-
-
 
 
 #pragma mark - PeripheralServerDelegate
@@ -936,7 +961,7 @@ NSString *characteristicUUIDString = @"AAAE";
 {
     [self.listener.echo stop];
     self.listener.echo = nil;
-    //listener = nil;
+    self.listener = nil;
 }
 
 
@@ -945,9 +970,21 @@ NSString *characteristicUUIDString = @"AAAE";
     SettingsData *data = [SettingsData sharedData];
     
     self.listener = [[UDPlistenerDelegate alloc] init];
-    assert(self.listener != nil);
     [self.listener runServerOnPort:data.port];
     
+}
+
+- (void)restartWifiListening
+{
+    SettingsData *data = [SettingsData sharedData];
+    
+    if (data.isBluetooth == NO && self.listener != nil)
+    {
+        [self stopListen];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [NSThread detachNewThreadSelector:@selector(runListener) toTarget:self withObject:nil];
+        });
+    }
 }
 
 - (void)sendPacket:(NSString *)stringData

@@ -108,6 +108,7 @@
     _scaleSubdivisionsWidth = 0.01;
     
     _value = 0.0;
+    _realValue = 0.0;
     _minValue = 0.0;
     _maxValue = 240.0;
 
@@ -728,6 +729,8 @@
  */
 - (void)updateValue:(float)value
 {
+    _realValue = value;
+    
     // Clamp value if out of range
     if (value > _maxValue)
         value = _maxValue;
@@ -784,16 +787,36 @@
     animation.removedOnCompletion = YES;
     animation.duration = animated ? duration : 0.0;
     animation.delegate = self;
+#if 0
     animation.values = [NSArray arrayWithObjects:
                         [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:lastValue]  , 0, 0, 1.0)],
                         [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:middleValue], 0, 0, 1.0)],
                         [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:_value]     , 0, 0, 1.0)],
                         nil];
+#else
+    if (self.scaleStartAngle == 0 && self.scaleEndAngle == 360)
+    {
+        animation.values = [NSArray arrayWithObjects:
+                            [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:lastValue]  , 0, 0, 1.0)],
+                            [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:_value]     , 0, 0, 1.0)],
+                            nil];
+    }
+    else
+    {
+        animation.values = [NSArray arrayWithObjects:
+                            [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:lastValue]  , 0, 0, 1.0)],
+                            [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:middleValue], 0, 0, 1.0)],
+                            [NSValue valueWithCATransform3D:CATransform3DMakeRotation([self needleAngleForValue:_value]     , 0, 0, 1.0)],
+                            nil];
+    }
+    
+    
+#endif
     
     rootNeedleLayer.transform = [[animation.values lastObject] CATransform3DValue];
     [rootNeedleLayer addAnimation:animation forKey:kCATransition];
     
-    _unitOfMeasurement = [NSString stringWithFormat:@"%.1f", _value];
+    _unitOfMeasurement = [NSString stringWithFormat:@"%.1f", _realValue];
     [self invalidateBackground];
 }
 

@@ -239,6 +239,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="status_gray" id="t5n-Hz-apB">
+                                <rect key="frame" x="36" y="27" width="19" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -253,6 +257,7 @@
                         <outlet property="gaugeWob" destination="8Sd-MS-gE7" id="gY2-Y6-2Ui"/>
                         <outlet property="inclination" destination="t05-Vd-Tgb" id="LwX-3e-jNY"/>
                         <outlet property="indicator" destination="3QU-cU-otk" id="amh-MX-iIA"/>
+                        <outlet property="ivStatus" destination="t5n-Hz-apB" id="t5g-FL-5AW"/>
                         <outlet property="lblAlertCurrValue" destination="CQR-KQ-vBB" id="1fu-EK-gUx"/>
                         <outlet property="lblAlertLimitValue" destination="UGh-u6-1HY" id="iF0-aN-Avg"/>
                         <outlet property="lblAlertTitle" destination="3Ma-ZV-4q4" id="hP2-dH-rTA"/>
@@ -601,6 +606,7 @@
     </scenes>
     <resources>
         <image name="checked" width="22" height="22"/>
+        <image name="status_gray" width="21" height="21"/>
         <image name="unchecked" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -17,6 +17,7 @@
 
 @interface ViewController : UIViewController <PeripheralServerDelegate> {
     PeripheralServer *peripheralServer;
+    
     BOOL    mNotifyStarted;
     BOOL    dataReceived;
     
@@ -28,6 +29,7 @@
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *indicator;
 @property (nonatomic, retain) IBOutlet UILabel *lblStatus;
+@property (nonatomic, retain) IBOutlet UIImageView *ivStatus;
 
 @property (nonatomic, retain) IBOutlet UIView *viewAlarm;
 
@@ -63,5 +65,6 @@
 
 - (void) runListener;
 - (void)sendPacket:(NSString *)stringData;
+- (void)restartWifiListening;
 
 @end

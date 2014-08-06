@@ -72,6 +72,7 @@ WMGaugeViewInnerBackgroundStyle;
 @property (nonatomic, readwrite, strong) UIColor *scaleSubDivisionColor;
 @property (nonatomic, readwrite, strong) UIFont *scaleFont;
 @property (nonatomic, readwrite, assign) float value;
+@property (nonatomic, readwrite, assign) float realValue;
 @property (nonatomic, readwrite, assign) float minValue;
 @property (nonatomic, readwrite, assign) float maxValue;
 @property (nonatomic, readwrite, assign) bool showRangeLabels;

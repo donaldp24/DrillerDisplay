@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0C7AB1E1992A14C00BFE678 /* AutoMessageBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C7AB1B1992A14C00BFE678 /* AutoMessageBox.m */; };
+		D0C7AB1F1992A14C00BFE678 /* AutoMessageBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C7AB1C1992A14C00BFE678 /* AutoMessageBox.xib */; };
+		D0C7AB201992A14C00BFE678 /* AutoMessageBox_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C7AB1D1992A14C00BFE678 /* AutoMessageBox_ipad.xib */; };
+		D0C7AB221992A1A400BFE678 /* msg-back.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7AB211992A1A400BFE678 /* msg-back.png */; };
 		D30AE18618EB51DF007636AD /* KeyboardHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D30AE18318EB51DF007636AD /* KeyboardHelper.m */; };
 		D30AE18718EB51DF007636AD /* NSStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D30AE18518EB51DF007636AD /* NSStringHelper.m */; };
 		D330471B18EA42F30036A3BC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D330471A18EA42F30036A3BC /* SettingsViewController.m */; };
@@ -47,6 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D0C7AB1A1992A14C00BFE678 /* AutoMessageBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoMessageBox.h; sourceTree = "<group>"; };
+		D0C7AB1B1992A14C00BFE678 /* AutoMessageBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoMessageBox.m; sourceTree = "<group>"; };
+		D0C7AB1C1992A14C00BFE678 /* AutoMessageBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoMessageBox.xib; sourceTree = "<group>"; };
+		D0C7AB1D1992A14C00BFE678 /* AutoMessageBox_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoMessageBox_ipad.xib; sourceTree = "<group>"; };
+		D0C7AB211992A1A400BFE678 /* msg-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msg-back.png"; sourceTree = "<group>"; };
 		D30AE18218EB51DF007636AD /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardHelper.h; path = Helper/KeyboardHelper.h; sourceTree = "<group>"; };
 		D30AE18318EB51DF007636AD /* KeyboardHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyboardHelper.m; path = Helper/KeyboardHelper.m; sourceTree = "<group>"; };
 		D30AE18418EB51DF007636AD /* NSStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSStringHelper.h; path = Helper/NSStringHelper.h; sourceTree = "<group>"; };
@@ -115,6 +124,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0C7AB191992A14C00BFE678 /* MessageBox */ = {
+			isa = PBXGroup;
+			children = (
+				D0C7AB211992A1A400BFE678 /* msg-back.png */,
+				D0C7AB1A1992A14C00BFE678 /* AutoMessageBox.h */,
+				D0C7AB1B1992A14C00BFE678 /* AutoMessageBox.m */,
+				D0C7AB1C1992A14C00BFE678 /* AutoMessageBox.xib */,
+				D0C7AB1D1992A14C00BFE678 /* AutoMessageBox_ipad.xib */,
+			);
+			path = MessageBox;
+			sourceTree = "<group>";
+		};
 		D30AE18118EB51D0007636AD /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +202,7 @@
 		D3B2F6AB18C05AF70074DA95 /* DrillerDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				D0C7AB191992A14C00BFE678 /* MessageBox */,
 				D34302BF1929A69900BB3FDF /* iTunesArtwork */,
 				D34302C11929B67900BB3FDF /* iTunesArtwork@2x */,
 				D3AA569D18FE74DE000F5D96 /* Gauge */,
@@ -313,11 +335,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D34302C21929B67900BB3FDF /* iTunesArtwork@2x in Resources */,
+				D0C7AB221992A1A400BFE678 /* msg-back.png in Resources */,
 				D3B2F6BC18C05AF70074DA95 /* Main_iPad.storyboard in Resources */,
 				D3B2F6C118C05AF70074DA95 /* Images.xcassets in Resources */,
 				D3B2F6B918C05AF70074DA95 /* Main_iPhone.storyboard in Resources */,
+				D0C7AB201992A14C00BFE678 /* AutoMessageBox_ipad.xib in Resources */,
 				D34302C01929A69900BB3FDF /* iTunesArtwork in Resources */,
 				D3B2F6B018C05AF70074DA95 /* InfoPlist.strings in Resources */,
+				D0C7AB1F1992A14C00BFE678 /* AutoMessageBox.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +371,7 @@
 				D30AE18618EB51DF007636AD /* KeyboardHelper.m in Sources */,
 				D330471E18EAF1650036A3BC /* SettingsData.m in Sources */,
 				D3F4170E18C42E21007F76F5 /* PeripheralServer.m in Sources */,
+				D0C7AB1E1992A14C00BFE678 /* AutoMessageBox.m in Sources */,
 				D3AA56A018FE74EF000F5D96 /* WMGaugeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
