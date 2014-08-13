@@ -55,7 +55,7 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
     
-        [(UIScrollView *)self.view setContentSize:CGSizeMake(self.view.frame.size.width, 788)];
+        [(UIScrollView *)self.view setContentSize:CGSizeMake(self.view.frame.size.width, 870)];
     }
     else
     {
@@ -226,7 +226,10 @@
         self.btnShowWob.selected = NO;
         
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-            self.btnShowAnn.selected = NO;
+        {
+            if (self.btnShowAnn.selected && self.btnShowRpm.selected)
+                self.btnShowRpm.selected = NO;
+        }
     }
     
 }
@@ -240,7 +243,10 @@
         self.btnShowPipe.selected = NO;
         
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-            self.btnShowAnn.selected = NO;
+        {
+            if (self.btnShowAnn.selected && self.btnShowRpm.selected)
+                self.btnShowRpm.selected = NO;
+        }
     }
 }
 
@@ -252,8 +258,8 @@
     {
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
-            self.btnShowPipe.selected = NO;
-            self.btnShowWob.selected = NO;
+            if ((self.btnShowPipe.selected || self.btnShowWob.selected) && self.btnShowRpm.selected)
+                self.btnShowRpm.selected = NO;
         }
     }
 }
@@ -261,6 +267,14 @@
 - (IBAction)onBtnShowRpmClicked:(id)sender
 {
     self.btnShowRpm.selected = !self.btnShowRpm.selected;
+    if (self.btnShowRpm.selected)
+    {
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ((self.btnShowPipe.selected || self.btnShowWob.selected) && self.btnShowAnn.selected)
+                self.btnShowAnn.selected = NO;
+        }
+    }
 }
 
 # pragma mark Gesture selector

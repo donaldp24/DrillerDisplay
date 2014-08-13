@@ -300,7 +300,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="uRy-TG-Cgf">
-                                <rect key="frame" x="3" y="53" width="315" height="751"/>
+                                <rect key="frame" x="3" y="53" width="315" height="797"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECTION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5zm-le-Q0Y">
@@ -530,40 +530,40 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wgq-sW-iDf">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wgq-sW-iDf">
                                         <rect key="frame" x="20" y="652" width="80" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Pipe" image="unchecked"/>
                                         <state key="selected" image="checked"/>
                                         <connections>
                                             <action selector="onBtnShowPipeClicked:" destination="udL-IW-8de" eventType="touchUpInside" id="jnv-h2-TDb"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jH4-kX-HBu">
-                                        <rect key="frame" x="117" y="652" width="80" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jH4-kX-HBu">
+                                        <rect key="frame" x="118" y="652" width="80" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="WOB" image="unchecked"/>
                                         <state key="selected" image="checked"/>
                                         <connections>
                                             <action selector="onBtnShowWobClicked:" destination="udL-IW-8de" eventType="touchUpInside" id="k5o-GL-tBX"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xe1-A2-zLm">
-                                        <rect key="frame" x="210" y="652" width="80" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xe1-A2-zLm">
+                                        <rect key="frame" x="20" y="692" width="80" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Ann" image="unchecked"/>
                                         <state key="selected" image="checked"/>
                                         <connections>
                                             <action selector="onBtnShowAnnClicked:" destination="udL-IW-8de" eventType="touchUpInside" id="2m5-dn-rOi"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cZa-zs-hVn">
-                                        <rect key="frame" x="22" y="692" width="80" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cZa-zs-hVn">
+                                        <rect key="frame" x="20" y="732" width="80" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="RPM" image="unchecked"/>
                                         <state key="selected" image="checked"/>
                                         <connections>

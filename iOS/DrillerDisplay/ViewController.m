@@ -396,39 +396,40 @@ NSString *characteristicUUIDString = @"AAAE";
         UILabel *label1 = nil;
         UILabel *label2 = nil;
         
-        BOOL showTwoGauges = YES;
+        
+        self.gaugePipe.hidden = self.lblPipe.hidden = YES;
+        self.gaugeWob.hidden = self.lblWob.hidden = YES;
+        self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
+        self.gaugeRpm.hidden = self.lblRpm.hidden = YES;
+        
+        
+        BOOL showTwoGauges = NO;
         if (data.isShowPipe)
         {
             gauge1 = self.gaugePipe;
             label1 = self.lblPipe;
             
-            self.gaugeWob.hidden = self.lblWob.hidden = YES;
-            self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
         }
         else if (data.isShowWob)
         {
             gauge1 = self.gaugeWob;
             label1 = self.lblWob;
-            
-            self.gaugePipe.hidden = self.lblPipe.hidden = YES;
-            self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
         }
-        else if (data.isShowAnn)
+        
+        if (data.isShowAnn)
         {
-            gauge1 = self.gaugeAnn;
-            label1 = self.lblAnn;
-            
-            self.gaugeWob.hidden = self.lblWob.hidden = YES;
-            self.gaugePipe.hidden = self.lblPipe.hidden = YES;
-        }
-        else
-        {
-            gauge1 = nil;
-            label1 = nil;
-            
-            self.gaugePipe.hidden = self.lblPipe.hidden = YES;
-            self.gaugeWob.hidden = self.lblWob.hidden = YES;
-            self.gaugeAnn.hidden = self.lblAnn.hidden = YES;
+            if (gauge1 == nil)
+            {
+                gauge1 = self.gaugeAnn;
+                label1 = self.lblAnn;
+            }
+            else
+            {
+                gauge2 = self.gaugeAnn;
+                label2 = self.lblAnn;
+                
+                showTwoGauges = YES;
+            }
         }
         
         if (data.isShowRpm)
@@ -448,15 +449,7 @@ NSString *characteristicUUIDString = @"AAAE";
                 showTwoGauges = NO;
             }
         }
-        else
-        {
-            gauge2 = nil;
-            label2 = nil;
-            
-            self.gaugeRpm.hidden = self.lblRpm.hidden = YES;
-            
-            showTwoGauges = NO;
-        }
+
         
         if(orientation == UIInterfaceOrientationPortrait) {
             
@@ -473,6 +466,7 @@ NSString *characteristicUUIDString = @"AAAE";
                 // gauge labels
                 label1.frame = CGRectMake(63, 462, 42, 21);
                 label2.frame = CGRectMake(210, 462, 42, 21);
+                
             }
             else
             {
