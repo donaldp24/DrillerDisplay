@@ -116,6 +116,7 @@
     }
     else 
     {
+        
         NSString *theStrValue = [convertedString substringWithRange:NSMakeRange(3, [convertedString length] - 3)];
         if ([secretCode isEqualToString: @"mg="])
         {
@@ -124,7 +125,8 @@
         }
         else
         {
-            float theFloatValue = [theStrValue floatValue];   
+            NSString *stringWithoutColons = [theStrValue stringByReplacingOccurrencesOfString:@"," withString:@""];
+            float theFloatValue = [stringWithoutColons floatValue];
             
             NSString *forKeyName;
             

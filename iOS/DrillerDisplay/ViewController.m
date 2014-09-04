@@ -909,7 +909,8 @@ NSString *characteristicUUIDString = @"AAAE";
         }
         else
         {
-            float theFloatValue = [theStrValue floatValue];
+            NSString *stringWithoutColons = [theStrValue stringByReplacingOccurrencesOfString:@"," withString:@""];
+            float theFloatValue = [stringWithoutColons floatValue];
             
             NSString *forKeyName;
             
